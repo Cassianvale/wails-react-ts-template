@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+.vs/
+.task/
+bindings/
+
+bin
+frontend/dist
+frontend/node_modules
+build/linux/appimage/build
+build/windows/nsis/MicrosoftEdgeWebview2Setup.exe
+Inter Font License.txt

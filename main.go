@@ -34,8 +34,9 @@ func main() {
 			application.NewService(&GreetService{}),
 		},
 		Assets: application.AssetOptions{
-			Handler: application.AssetFileServerFS(assets),
+			Handler: application.BundledAssetFileServer(assets),
 		},
+
 		Mac: application.MacOptions{
 			ApplicationShouldTerminateAfterLastWindowClosed: true,
 		},
@@ -47,7 +48,10 @@ func main() {
 	// 'BackgroundColour' is the background colour of the window.
 	// 'URL' is the URL that will be loaded into the webview.
 	app.NewWebviewWindowWithOptions(application.WebviewWindowOptions{
-		Title: "Window 1",
+		Name:      "main",
+		Title:     "Window 1",
+		Frameless: true,
+
 		Mac: application.MacWindow{
 			InvisibleTitleBarHeight: 50,
 			Backdrop:                application.MacBackdropTranslucent,

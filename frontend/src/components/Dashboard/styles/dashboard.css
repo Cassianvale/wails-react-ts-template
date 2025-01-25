@@ -3,6 +3,10 @@
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-properties: all var(--transition-duration) var(--transition-timing);
   --blur-effect: blur(8px);
+  --logo-text-color: var(--color-text);
+  --logo-hover-scale: 1.03;
+  --spring-transition: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --bounce-transition: cubic-bezier(0.37, 0, 0.63, 1.4);
 }
 
 .dashboard-layout {
@@ -63,8 +67,92 @@
   height: 32px;
   margin: 16px;
   border-radius: 8px;
-  opacity: 0.2;
-  transition: var(--transition-properties);
+  transition: transform 0.4s var(--spring-transition);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: transparent !important;
+  opacity: 1;
+  cursor: pointer;
+  padding: 0 8px;
+  position: relative;
+  min-width: 48px;
+  justify-content: center;
+}
+
+.dashboard-logo:hover {
+  transform: scale(var(--logo-hover-scale));
+}
+
+.dashboard-logo:active {
+  transform: scale(0.98);
+}
+
+.dashboard-logo-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-primary);
+  transition: all 0.5s var(--bounce-transition);
+  will-change: transform;
+}
+
+.dashboard-logo:hover .dashboard-logo-icon {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+.dashboard-logo-text {
+  margin-left: 10px;
+  color: var(--logo-text-color);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  opacity: 1;
+  transform-origin: left center;
+  transition: all 0.5s var(--bounce-transition);
+  will-change: transform, opacity;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  flex-shrink: 0;
+}
+
+.ant-layout-sider-collapsed .dashboard-logo-text {
+  opacity: 0;
+  width: 0;
+  margin-left: 0;
+  transform: scale(0.7) translateX(-10px);
+}
+
+[data-theme='dark'] .dashboard-logo-text {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  font-weight: 500;
+}
+
+[data-theme='light'] .dashboard-logo-text {
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-logo::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-primary);
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity 0.3s var(--bounce-transition);
+  z-index: -1;
+}
+
+.dashboard-logo:hover::after {
+  opacity: 0.05;
 }
 
 @keyframes fadeIn {

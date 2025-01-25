@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Layout, Button, theme } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { ThemeContext } from '../../App';
 import MainMenu from './components/Sider/MainMenu';
 import UserProfile from './components/Sider/UserProfile';
@@ -28,12 +28,14 @@ const Dashboard: React.FC = () => {
         className="dashboard-sider"
         style={{ background: token.colorBgContainer }}
       >
-        <div
-          className="dashboard-logo"
-          style={{
-            background: token.colorPrimary,
-          }}
-        />
+        <div className="dashboard-logo">
+          <div className="dashboard-logo-icon">
+            <AppstoreOutlined />
+          </div>
+          <div className="dashboard-logo-text">
+            Wails Pro
+          </div>
+        </div>
         <MainMenu
           theme={currentTheme}
           selectedKey={selectedKey}

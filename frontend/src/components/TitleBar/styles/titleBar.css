@@ -9,6 +9,11 @@
   --wails-draggable: drag;
   -webkit-app-region: drag;
   user-select: none;
+  transition: var(--transition-properties);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect);
+  will-change: background-color;
+  transform: translateZ(0);
 }
 
 .title-bar-title {
@@ -16,6 +21,7 @@
   font-weight: 500;
   opacity: 0.85;
   margin-left: 8px;
+  transition: var(--transition-properties);
 }
 
 .title-bar-controls {
@@ -23,6 +29,7 @@
   -webkit-app-region: no-drag;
   display: flex;
   align-items: center;
+  gap: 2px;
 }
 
 .title-bar-button {
@@ -33,18 +40,22 @@
   height: 28px;
   padding: 0;
   border-radius: 4px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-properties);
   cursor: pointer;
   margin: 0 1px;
+  will-change: background-color, transform;
+  transform: translateZ(0);
 }
 
 .title-bar-button:hover {
   background-color: var(--ant-primary-1);
+  transform: scale(1.05);
 }
 
 .title-bar-button-danger:hover {
   color: var(--ant-color-error);
   background-color: var(--ant-color-error-bg);
+  transform: scale(1.05);
 }
 
 .title-bar-icon {
@@ -52,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--transition-properties);
 }
 
 .title-bar-divider {
@@ -60,4 +72,5 @@
   background-color: var(--ant-color-split);
   margin: 0 4px;
   opacity: 0.2;
+  transition: var(--transition-properties);
 } 

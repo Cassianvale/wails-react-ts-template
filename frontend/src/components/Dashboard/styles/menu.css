@@ -1,7 +1,8 @@
 .dashboard-layout .menu-container.ant-menu {
   padding: 0 8px;
-  transition: all 0.2s;
+  transition: var(--transition-properties);
   background: transparent;
+  border-inline-end: none !important;  /* Remove the border of the menu bar */
 }
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-item {
@@ -9,6 +10,9 @@
   margin: 4px 0 !important;
   border-radius: 6px !important;
   background: transparent !important;
+  transition: var(--transition-properties);
+  transform: translateZ(0);
+  will-change: background-color, transform;
 }
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-item::before {
@@ -21,8 +25,9 @@
   width: 4px;
   background-color: var(--ant-primary-color);
   border-radius: 0 4px 4px 0;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-properties);
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-item:hover::before {
@@ -32,6 +37,7 @@
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-item-selected {
   background-color: var(--ant-primary-1) !important;
+  transform: scale(1.02);
 }
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-item-selected::before {
@@ -42,6 +48,7 @@
 .dashboard-layout .menu-container.ant-menu .ant-menu-item-active:not(.ant-menu-item-selected) {
   background-color: var(--ant-primary-1) !important;
   opacity: 0.5;
+  transform: scale(1.01);
 }
 
 .dashboard-layout .menu-container.ant-menu .ant-menu-inline {
@@ -58,20 +65,27 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  transition: all 0.2s;
+  transition: var(--transition-properties);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .user-info {
-  transition: opacity 0.2s;
+  transition: var(--transition-properties);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  will-change: opacity;
 }
 
 .user-status {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  transition: var(--transition-properties);
+  will-change: background-color;
 }
 
 .user-name {
@@ -80,8 +94,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: var(--transition-properties);
 }
 
 .user-status-text {
   font-size: 12px;
+  transition: var(--transition-properties);
 } 

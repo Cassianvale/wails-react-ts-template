@@ -1,3 +1,10 @@
+:root {
+  --transition-duration: 0.2s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-properties: all var(--transition-duration) var(--transition-timing);
+  --blur-effect: blur(8px);
+}
+
 .dashboard-layout {
   height: 100%;
 }
@@ -10,7 +17,9 @@
   top: var(--title-bar-height);
   bottom: 0;
   padding-bottom: 64px;
-  transition: all 0.2s ease-in-out;
+  transition: var(--transition-properties);
+  will-change: transform, background-color;
+  transform: translateZ(0);
 }
 
 .dashboard-header {
@@ -21,8 +30,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect);
+  transition: var(--transition-properties);
+  will-change: background-color;
+  transform: translateZ(0);
 }
 
 .dashboard-content {
@@ -32,12 +44,19 @@
   overflow: auto;
   position: relative;
   border-radius: 8px;
+  transition: var(--transition-properties);
+  will-change: background-color;
+  transform: translateZ(0);
+  opacity: 0;
+  animation: fadeIn 0.3s var(--transition-timing) forwards;
 }
 
 .dashboard-content-layout {
-  transition: margin-left 0.2s;
+  transition: var(--transition-properties);
   background: transparent;
   min-height: calc(100vh - var(--title-bar-height));
+  will-change: margin-left, background-color;
+  transform: translateZ(0);
 }
 
 .dashboard-logo {
@@ -45,4 +64,16 @@
   margin: 16px;
   border-radius: 8px;
   opacity: 0.2;
+  transition: var(--transition-properties);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 } 

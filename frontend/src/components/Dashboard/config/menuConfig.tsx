@@ -16,37 +16,37 @@ export const mainMenuItems = [
   {
     key: '1',
     icon: <UserOutlined />,
-    label: '主页',
+    label: 'Home',
     type: 'item',
   },
   {
     key: '2',
     icon: <KeyOutlined />,
-    label: '按键模拟',
+    label: 'Key Simulation',
     type: 'item',
   },
   {
     key: '3',
     icon: <VideoCameraOutlined />,
-    label: '宏编辑器',
+    label: 'Macro Editor',
     type: 'item',
   },
   {
     key: '4',
     icon: <SettingOutlined />,
-    label: '模式设置',
+    label: 'Mode Settings',
     type: 'item',
   },
   {
     key: '5',
     icon: <InfoCircleOutlined />,
-    label: '关于',
+    label: 'About',
     type: 'item',
   },
   {
     key: '6',
     icon: <SettingOutlined />,
-    label: '设置',
+    label: 'Settings',
     type: 'item',
   },
 ] as MenuItem[];
@@ -55,17 +55,17 @@ export const userMenuItems: MenuItem[] = [
   {
     key: 'profile',
     icon: <UserOutlined />,
-    label: '个人信息',
+    label: 'Profile',
   },
   {
     key: 'edit',
     icon: <EditOutlined />,
-    label: '编辑资料',
+    label: 'Edit Profile',
   },
   {
     key: 'switch',
     icon: <UserSwitchOutlined />,
-    label: '切换账号',
+    label: 'Switch Account',
   },
   {
     key: 'divider',
@@ -74,7 +74,7 @@ export const userMenuItems: MenuItem[] = [
   {
     key: 'logout',
     icon: <LogoutOutlined />,
-    label: '退出登录',
+    label: 'Logout',
     danger: true,
   },
-]; 
+];

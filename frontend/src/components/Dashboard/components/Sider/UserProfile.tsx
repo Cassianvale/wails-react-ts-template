@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Dropdown, theme } from 'antd';
 import { userMenuItems } from '../../config/menuConfig';
-import testAvatar from '../../../../assets/images/test_avatar.png';
+import testAvatar from '../../../../assets/images/user_avatar.png';
 import type { MenuProps } from 'antd';
 
 interface UserProfileProps {
@@ -15,16 +15,16 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
   const handleUserMenuClick: MenuProps['onClick'] = ({ key }) => {
     switch (key) {
       case 'logout':
-        console.log('用户登出');
+        console.log('User logged out');
         break;
       case 'profile':
-        console.log('查看个人信息');
+        console.log('View profile');
         break;
       case 'edit':
-        console.log('编辑资料');
+        console.log('Edit profile');
         break;
       case 'switch':
-        console.log('切换账号');
+        console.log('Switch account');
         break;
     }
   };
@@ -76,7 +76,7 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
             className="user-status-text"
             style={{ color: token.colorTextSecondary }}
           >
-            在线
+            Online
           </div>
         </div>
       )}

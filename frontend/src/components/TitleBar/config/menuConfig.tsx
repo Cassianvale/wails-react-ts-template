@@ -6,17 +6,17 @@ type MenuItem = Required<MenuProps>['items'][number];
 export const themeMenuItems: MenuItem[] = [
   {
     key: 'system',
-    label: '跟随系统',
+    label: 'Follow System',
     icon: <BulbOutlined />,
   },
   {
     key: 'light',
-    label: '浅色模式',
+    label: 'Light Mode',
     icon: <BulbFilled style={{ color: '#faad14' }} />,
   },
   {
     key: 'dark',
-    label: '深色模式',
+    label: 'Dark Mode', 
     icon: <BulbFilled style={{ color: '#177ddc' }} />,
   },
 ] as MenuItem[];

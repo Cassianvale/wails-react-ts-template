@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
           />
         </Header>
         <DashboardContent>
-          内容区域
+          Content
         </DashboardContent>
       </Layout>
     </Layout>

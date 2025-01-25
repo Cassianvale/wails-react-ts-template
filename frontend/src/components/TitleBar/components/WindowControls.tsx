@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Button } from 'antd';
+import { Button } from 'antd';
 import { 
   MinusOutlined, 
   CloseOutlined, 
@@ -25,7 +25,7 @@ const WindowControls: React.FC<WindowControlsProps> = ({
   };
 
   return (
-    <Space className="title-bar-controls">
+    <>
       <Button 
         type="text" 
         icon={isAlwaysOnTop ? <PushpinFilled /> : <PushpinOutlined />} 
@@ -55,7 +55,7 @@ const WindowControls: React.FC<WindowControlsProps> = ({
         className="title-bar-button title-bar-button-danger"
         danger
       />
-    </Space>
+    </>
   );
 };
 

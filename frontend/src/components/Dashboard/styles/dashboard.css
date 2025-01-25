@@ -1,0 +1,48 @@
+.dashboard-layout {
+  height: 100%;
+}
+
+.dashboard-sider {
+  overflow: auto;
+  height: calc(100% - var(--title-bar-height));
+  position: fixed;
+  left: 0;
+  top: var(--title-bar-height);
+  bottom: 0;
+  padding-bottom: 64px;
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-header {
+  padding: 0;
+  background: transparent;
+  height: 48px;
+  line-height: 48px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dashboard-content {
+  margin: 8px;
+  padding: 16px;
+  min-height: 280px;
+  overflow: auto;
+  position: relative;
+  border-radius: 8px;
+}
+
+.dashboard-content-layout {
+  transition: margin-left 0.2s;
+  background: transparent;
+  min-height: calc(100vh - var(--title-bar-height));
+}
+
+.dashboard-logo {
+  height: 32px;
+  margin: 16px;
+  border-radius: 8px;
+  opacity: 0.2;
+} 

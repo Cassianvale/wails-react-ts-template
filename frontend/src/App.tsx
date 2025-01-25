@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from 'antd';
 import { createContext, useState, useEffect } from 'react';
-import Dashboard from './components/dashboard';
-import TitleBar from './components/TitleBar';
+import Dashboard from './components/Dashboard/index';
+import TitleBar from './components/TitleBar/index';
 
 export type ThemeMode = 'system' | 'dark' | 'light';
 
@@ -40,6 +40,7 @@ const App = () => {
     algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
     token: {
       borderRadius: 6,
+      colorPrimary: '#1890ff',
     },
   };
 
@@ -50,6 +51,9 @@ const App = () => {
           {`
             :root {
               --title-bar-height: ${TITLE_BAR_HEIGHT};
+              --ant-primary-color: ${themeConfig.token.colorPrimary || '#1890ff'};
+              --ant-primary-1: ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
+              --bg-color: ${isDark ? '#141414' : '#ffffff'};
             }
           `}
         </style>

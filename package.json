@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/react": "^19.0.8"
+  },
+  "dependencies": {
+    "antd-style": "^3.7.1"
   }
 }

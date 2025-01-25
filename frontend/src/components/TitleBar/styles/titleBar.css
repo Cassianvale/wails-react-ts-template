@@ -2,26 +2,62 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding: 0 16px;
   height: var(--title-bar-height);
   position: relative;
   z-index: 1000;
   --wails-draggable: drag;
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.title-bar-title {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-left: 8px;
 }
 
 .title-bar-controls {
   --wails-draggable: no-drag;
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
 }
 
 .title-bar-button {
-  padding: 4px 8px;
-  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  margin: 0 1px;
 }
 
 .title-bar-button:hover {
-  background-color: var(--color-bg-text-hover);
+  background-color: var(--ant-primary-1);
 }
 
 .title-bar-button-danger:hover {
-  color: var(--color-error);
+  color: var(--ant-color-error);
+  background-color: var(--ant-color-error-bg);
+}
+
+.title-bar-icon {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-bar-divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--ant-color-split);
+  margin: 0 4px;
+  opacity: 0.2;
 } 

@@ -1,7 +1,9 @@
-import { Space, Button, Typography } from 'antd';
-import { MinusOutlined, CloseOutlined, BorderOutlined, PushpinOutlined, PushpinFilled } from '@ant-design/icons';
+import { Space, Button, Typography, Dropdown, theme } from 'antd';
+import { MinusOutlined, CloseOutlined, BorderOutlined, PushpinOutlined, PushpinFilled, 
+  BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { GreetService } from '../../bindings/changeme';
-import { useState, CSSProperties } from 'react';
+import { useState, CSSProperties, useContext } from 'react';
+import { ThemeContext, ThemeMode } from '../App';
 
 interface CustomCSSProperties extends CSSProperties {
   '--wails-draggable'?: string;
@@ -9,11 +11,46 @@ interface CustomCSSProperties extends CSSProperties {
 
 export default function TitleBar() {
   const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(false);
+  const { themeMode, setThemeMode } = useContext(ThemeContext);
+  const { token } = theme.useToken();
 
   const handleAlwaysOnTop = () => {
     const newState = !isAlwaysOnTop;
     setIsAlwaysOnTop(newState);
     GreetService.SetAlwaysOnTop(newState);
+  };
+
+  const themeItems = [
+    {
+      key: 'system',
+      label: '跟随系统',
+      icon: <BulbOutlined />,
+    },
+    {
+      key: 'light',
+      label: '浅色模式',
+      icon: <BulbFilled style={{ color: '#faad14' }} />,
+    },
+    {
+      key: 'dark',
+      label: '深色模式',
+      icon: <BulbFilled style={{ color: '#177ddc' }} />,
+    },
+  ];
+
+  const handleThemeChange = ({ key }: { key: string }) => {
+    setThemeMode(key as ThemeMode);
+  };
+
+  const getThemeIcon = () => {
+    switch (themeMode) {
+      case 'light':
+        return <BulbFilled style={{ color: '#faad14' }} />;
+      case 'dark':
+        return <BulbFilled style={{ color: '#177ddc' }} />;
+      default:
+        return <BulbOutlined />;
+    }
   };
 
   return (
@@ -22,10 +59,10 @@ export default function TitleBar() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        background: '#fff',
+        background: token.colorBgContainer,
         padding: '8px',
-        height: '32px',
-        borderBottom: '1px solid #f0f0f0',
+        height: 'var(--title-bar-height)',
+        borderBottom: `1px solid ${token.colorBorderSecondary}`,
         position: 'relative',
         zIndex: 1000,
         '--wails-draggable': 'drag'
@@ -33,6 +70,21 @@ export default function TitleBar() {
     >
       <Typography.Text strong>My Application</Typography.Text>
       <Space className="no-drag" style={{ '--wails-draggable': 'no-drag' } as CustomCSSProperties}>
+        <Dropdown 
+          menu={{ 
+            items: themeItems, 
+            onClick: handleThemeChange,
+            selectedKeys: [themeMode]
+          }} 
+          placement="bottomRight"
+          trigger={['click']}
+        >
+          <Button 
+            type="text"
+            icon={getThemeIcon()}
+            size="small"
+          />
+        </Dropdown>
         <Button 
           type="text" 
           icon={isAlwaysOnTop ? <PushpinFilled /> : <PushpinOutlined />} 

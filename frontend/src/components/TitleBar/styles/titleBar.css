@@ -1,0 +1,27 @@
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  height: var(--title-bar-height);
+  position: relative;
+  z-index: 1000;
+  --wails-draggable: drag;
+}
+
+.title-bar-controls {
+  --wails-draggable: no-drag;
+}
+
+.title-bar-button {
+  padding: 4px 8px;
+  transition: all 0.2s;
+}
+
+.title-bar-button:hover {
+  background-color: var(--color-bg-text-hover);
+}
+
+.title-bar-button-danger:hover {
+  color: var(--color-error);
+} 

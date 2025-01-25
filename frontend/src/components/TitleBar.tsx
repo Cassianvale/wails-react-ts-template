@@ -1,11 +1,13 @@
-import { Box, IconButton, Typography } from '@mui/material';
-import { Minimize, Close, CropSquare, PushPin, PushPinOutlined } from '@mui/icons-material';
+import { Space, Button, Typography } from 'antd';
+import { MinusOutlined, CloseOutlined, BorderOutlined, PushpinOutlined, PushpinFilled } from '@ant-design/icons';
 import { GreetService } from '../../bindings/changeme';
-import { useTheme } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, CSSProperties } from 'react';
+
+interface CustomCSSProperties extends CSSProperties {
+  '--wails-draggable'?: string;
+}
 
 export default function TitleBar() {
-  const theme = useTheme();
   const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(false);
 
   const handleAlwaysOnTop = () => {
@@ -15,40 +17,48 @@ export default function TitleBar() {
   };
 
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        bgcolor: 'background.paper',
-        p: 1,
+        background: '#fff',
+        padding: '8px',
         height: '32px',
-        borderBottom: 1,
-        borderColor: 'divider',
+        borderBottom: '1px solid #f0f0f0',
         position: 'relative',
-        zIndex: theme.zIndex.drawer + 2,
-        '--wails-draggable': 'drag',
-        '& .no-drag': {
-          '--wails-draggable': 'no-drag'
-        }
-      }}
+        zIndex: 1000,
+        '--wails-draggable': 'drag'
+      } as CustomCSSProperties}
     >
-      <Typography variant="h6">My Application</Typography>
-      <Box className="no-drag">
-        <IconButton onClick={handleAlwaysOnTop}>
-          {isAlwaysOnTop ? <PushPin fontSize="small" /> : <PushPinOutlined fontSize="small" />}
-        </IconButton>
-
-        <IconButton onClick={() => GreetService.Minimize()}>
-          <Minimize fontSize="small" />
-        </IconButton>
-        <IconButton onClick={() => GreetService.Maximize()}>
-          <CropSquare fontSize="small" />
-        </IconButton>
-        <IconButton onClick={() => GreetService.Close()}>
-          <Close fontSize="small" />
-        </IconButton>
-      </Box>
-    </Box>
+      <Typography.Text strong>My Application</Typography.Text>
+      <Space className="no-drag" style={{ '--wails-draggable': 'no-drag' } as CustomCSSProperties}>
+        <Button 
+          type="text" 
+          icon={isAlwaysOnTop ? <PushpinFilled /> : <PushpinOutlined />} 
+          onClick={handleAlwaysOnTop}
+          size="small"
+        />
+        <Button 
+          type="text" 
+          icon={<MinusOutlined />} 
+          onClick={() => GreetService.Minimize()}
+          size="small"
+        />
+        <Button 
+          type="text" 
+          icon={<BorderOutlined />} 
+          onClick={() => GreetService.Maximize()}
+          size="small"
+        />
+        <Button 
+          type="text" 
+          icon={<CloseOutlined />} 
+          onClick={() => GreetService.Close()}
+          size="small"
+          danger
+        />
+      </Space>
+    </div>
   );
 } 

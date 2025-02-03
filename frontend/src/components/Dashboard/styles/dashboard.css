@@ -89,15 +89,10 @@
 }
 
 .dashboard-content {
-  margin: 8px;
-  padding: 16px;
-  min-height: 280px;
+  padding: 24px;
   overflow: auto;
   position: relative;
-  border-radius: 8px;
   transition: var(--transition-properties);
-  will-change: background-color;
-  transform: translateZ(0);
   opacity: 0;
   animation: fadeIn 0.3s var(--transition-timing) forwards;
 }
@@ -139,6 +134,12 @@
   color: var(--color-primary);
   transition: all 0.5s var(--bounce-transition);
   will-change: transform;
+}
+
+.dashboard-logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .dashboard-logo:hover .dashboard-logo-icon {

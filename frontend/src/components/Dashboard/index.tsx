@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { Layout, Button, theme } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { ThemeContext } from '../../App';
 import MainMenu from './components/Sider/MainMenu';
 import UserProfile from './components/Sider/UserProfile';
 import DashboardContent from './components/Content';
 import ThemeSelector from './components/Header/ThemeSelector';
 import WindowControls from './components/Header/WindowControls';
+import Logo from './components/Sider/Logo';
 import './styles/dashboard.css';
 import './styles/menu.css';
 
@@ -31,14 +32,7 @@ const Dashboard: React.FC = () => {
         className="dashboard-sider"
         style={{ background: token.colorBgContainer }}
       >
-        <div className="dashboard-logo">
-          <div className="dashboard-logo-icon">
-            <AppstoreOutlined />
-          </div>
-          <div className="dashboard-logo-text">
-            Wails Pro
-          </div>
-        </div>
+        <Logo collapsed={collapsed} />
         <div className="dashboard-sider-menu">
           <MainMenu
             theme={currentTheme}

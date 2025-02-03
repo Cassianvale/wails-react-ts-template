@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, theme } from 'antd';
+import { Layout } from 'antd';
 
 const { Content } = Layout;
 
@@ -8,16 +8,8 @@ interface DashboardContentProps {
 }
 
 const DashboardContent: React.FC<DashboardContentProps> = React.memo(({ children }) => {
-  const { token } = theme.useToken();
-
   return (
-    <Content
-      className="dashboard-content"
-      style={{
-        background: token.colorBgElevated,
-        boxShadow: token.boxShadow,
-      }}
-    >
+    <Content className="dashboard-content">
       {children}
     </Content>
   );
@@ -25,4 +17,4 @@ const DashboardContent: React.FC<DashboardContentProps> = React.memo(({ children
 
 DashboardContent.displayName = 'DashboardContent';
 
-export default DashboardContent; 
+export default DashboardContent;

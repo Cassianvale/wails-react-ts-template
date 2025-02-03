@@ -74,10 +74,8 @@
   background: transparent !important;
   opacity: 1;
   cursor: pointer;
-  padding: 0 8px;
+  padding: 0 4px;
   position: relative;
-  min-width: 48px;
-  justify-content: center;
 }
 
 .dashboard-logo:hover {
@@ -105,11 +103,11 @@
 }
 
 .dashboard-logo-text {
-  margin-left: 10px;
+  margin-left: 12px;
   color: var(--logo-text-color);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.5px;
   white-space: nowrap;
   opacity: 1;
   transform-origin: left center;
@@ -118,14 +116,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  flex-shrink: 0;
 }
 
 .ant-layout-sider-collapsed .dashboard-logo-text {
   opacity: 0;
   width: 0;
   margin-left: 0;
-  transform: scale(0.7) translateX(-10px);
+  transform: scale(0.7) translateX(-20px);
 }
 
 [data-theme='dark'] .dashboard-logo-text {

@@ -144,7 +144,6 @@
   height: 100%;
   background-color: var(--bg-color) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  border-right: 1px solid var(--ant-primary-1);
 }
 
 .ant-layout-sider-children {
@@ -172,7 +171,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-top: 1px solid var(--ant-primary-1);
   cursor: pointer;
   background-color: var(--bg-color);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);

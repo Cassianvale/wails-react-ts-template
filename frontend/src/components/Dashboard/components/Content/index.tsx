@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Card } from 'antd';
 
 const { Content } = Layout;
 
@@ -10,7 +10,9 @@ interface DashboardContentProps {
 const DashboardContent: React.FC<DashboardContentProps> = React.memo(({ children }) => {
   return (
     <Content className="dashboard-content">
-      {children}
+      <Card className="content-card" bordered={false}>
+        {children}
+      </Card>
     </Content>
   );
 });

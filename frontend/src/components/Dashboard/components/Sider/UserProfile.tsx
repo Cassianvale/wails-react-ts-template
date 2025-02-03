@@ -36,7 +36,6 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
     <div 
       className="user-profile"
       style={{
-        borderTop: `1px solid ${token.colorBorder}`,
         background: token.colorBgContainer,
       }}
     >

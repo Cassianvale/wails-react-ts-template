@@ -15,6 +15,7 @@ export default {
       system: 'System',
     },
     language: {
+      system: "System",
       en: 'English',
       zh: '中文',
     },
@@ -65,6 +66,9 @@ export default {
     language: 'Language',
     theme: 'Theme',
     notifications: 'Notifications',
+    enableNotifications: 'Enable Notifications',
     autoStart: 'Auto Start',
+    system: 'System Settings',
+    saved: 'Save Successful !',
   },
 };

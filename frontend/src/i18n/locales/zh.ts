@@ -15,6 +15,7 @@ export default {
       system: '跟随系统',
     },
     language: {
+      system: "跟随系统",
       en: 'English',
       zh: '中文',
     },
@@ -64,7 +65,10 @@ export default {
     title: '设置',
     language: '语言',
     theme: '主题',
-    notifications: '通知',
+    notifications: '通知设置',
+    enableNotifications: '开启通知',
     autoStart: '自动启动',
+    system: '系统设置',
+    saved: '保存成功！',
   },
 };

@@ -1,6 +1,8 @@
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme, Spin } from 'antd';
 import { createContext, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Dashboard from './components/Dashboard/index';
+import './i18n/config';
 
 export type ThemeMode = 'system' | 'dark' | 'light';
 
@@ -17,6 +19,19 @@ export const ThemeContext = createContext<ThemeContextType>({
 const App = () => {
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [isDark, setIsDark] = useState(false);
+  const { i18n } = useTranslation();
+  const [i18nInitialized, setI18nInitialized] = useState(false);
+
+  useEffect(() => {
+    const checkI18nInit = () => {
+      if (i18n.isInitialized) {
+        setI18nInitialized(true);
+      } else {
+        setTimeout(checkI18nInit, 100);
+      }
+    };
+    checkI18nInit();
+  }, [i18n]);
 
   useEffect(() => {
     if (themeMode === 'system') {
@@ -30,6 +45,19 @@ const App = () => {
       setIsDark(themeMode === 'dark');
     }
   }, [themeMode]);
+
+  if (!i18nInitialized) {
+    return (
+      <div style={{ 
+        height: '100vh', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center' 
+      }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   const themeConfig = {
     algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
@@ -49,17 +77,23 @@ const App = () => {
               --ant-primary-1: ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
               --bg-color: ${isDark ? '#141414' : '#ffffff'};
             }
+            body {
+              background-color: var(--bg-color);
+            }
           `}
         </style>
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column',
-          height: '100vh',
-          width: '100vw',
-          margin: 0,
-          padding: 0,
-          overflow: 'hidden',
-        }}>
+        <div 
+          className={isDark ? 'theme-dark' : 'theme-light'}
+          style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            height: '100vh',
+            width: '100vw',
+            margin: 0,
+            padding: 0,
+            overflow: 'hidden',
+          }}
+        >
           <Dashboard />
         </div>
       </ThemeContext.Provider>

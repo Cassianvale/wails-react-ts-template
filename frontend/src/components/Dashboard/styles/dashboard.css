@@ -2,11 +2,18 @@
   --transition-duration: 0.2s;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-properties: all var(--transition-duration) var(--transition-timing);
-  --blur-effect: blur(8px);
-  --logo-text-color: var(--color-text);
-  --logo-hover-scale: 1.03;
   --spring-transition: cubic-bezier(0.68, -0.6, 0.32, 1.6);
   --bounce-transition: cubic-bezier(0.37, 0, 0.63, 1.4);
+  --sidebar-width-expanded: 200px;
+  --sidebar-width-collapsed: 64px;
+}
+
+.theme-light {
+  --logo-color: #213547;
+}
+
+.theme-dark {
+  --logo-color: #ffffff;
 }
 
 .dashboard-layout {
@@ -21,31 +28,51 @@
   top: 0;
   bottom: 0;
   padding-bottom: 64px;
-  transition: var(--transition-properties);
-  will-change: transform, background-color;
+  transition: transform var(--transition-duration) ease;
+  will-change: transform;
   transform: translateZ(0);
+  z-index: 100;
+  width: var(--sidebar-width-expanded);
+}
+
+.dashboard-sider.expanded {
+  transform: translateX(0);
+}
+
+.dashboard-sider.collapsed {
+  transform: translateX(calc(var(--sidebar-width-collapsed) - var(--sidebar-width-expanded)));
 }
 
 .dashboard-sider-menu {
   height: calc(100% - 48px);
   overflow-y: auto;
   overflow-x: hidden;
+  border-right: 0;
+  width: 100%;
+  transition: width var(--transition-duration) var(--transition-timing);
 }
 
 .dashboard-header {
   padding: 0;
-  background: var(--bg-color);
+  background: var(--color-bg-container);
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--ant-primary-1);
   height: 48px;
   line-height: 48px;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  --wails-draggable: drag;
 }
 
 .header-left {
   display: flex;
   align-items: center;
+  padding-left: 16px;
+  height: 100%;
+  --wails-draggable: no-drag;
 }
 
 .header-right {
@@ -53,6 +80,8 @@
   align-items: center;
   padding-right: 16px;
   gap: 8px;
+  height: 100%;
+  --wails-draggable: no-drag;
 }
 
 .header-divider {
@@ -88,8 +117,15 @@
   transform: scale(1.05);
 }
 
+.trigger-button {
+  padding: 0 16px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
 .dashboard-content {
-  padding: 24px;
+  padding: 10px;
   overflow: auto;
   position: relative;
   transition: var(--transition-properties);
@@ -106,76 +142,62 @@
 
 .dashboard-logo {
   height: 48px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  margin: 0;
   cursor: pointer;
-  transition: var(--transition-properties);
-  position: relative;
-  z-index: 1;
-}
-
-.dashboard-logo:hover {
-  transform: scale(var(--logo-hover-scale));
-}
-
-.dashboard-logo:active {
-  transform: scale(0.98);
+  overflow: hidden;
+  transition: all var(--transition-duration) var(--spring-transition);
+  will-change: transform;
 }
 
 .dashboard-logo-icon {
-  width: 32px;
+  min-width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  color: var(--color-primary);
-  transition: all 0.5s var(--bounce-transition);
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: all var(--transition-duration) var(--spring-transition);
   will-change: transform;
 }
 
 .dashboard-logo-icon img {
-  width: 100%;
-  height: 100%;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
+}
+
+.dashboard-logo-text {
+  margin-left: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--logo-color);
+  white-space: nowrap;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all var(--transition-duration) var(--spring-transition);
+}
+
+.dashboard-sider.collapsed .dashboard-logo {
+  padding: 16px;
+  justify-content: center;
+}
+
+.dashboard-sider.collapsed .dashboard-logo-text {
+  opacity: 0;
+  transform: translateX(-10px);
+  margin-left: 0;
+  width: 0;
 }
 
 .dashboard-logo:hover .dashboard-logo-icon {
   transform: rotate(-15deg) scale(1.1);
 }
 
-.dashboard-logo-text {
-  margin-left: 12px;
-  color: var(--logo-text-color);
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  opacity: 1;
-  transform-origin: left center;
-  transition: all 0.5s var(--bounce-transition);
-  will-change: transform, opacity;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.ant-layout-sider-collapsed .dashboard-logo-text {
-  opacity: 0;
-  width: 0;
-  margin-left: 0;
-  transform: scale(0.7) translateX(-20px);
-}
-
-[data-theme='dark'] .dashboard-logo-text {
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
-  font-weight: 500;
-}
-
-[data-theme='light'] .dashboard-logo-text {
-  text-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+.dashboard-logo:active {
+  transform: scale(0.98);
 }
 
 .dashboard-logo::after {
@@ -185,15 +207,56 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-primary);
+  background: var(--ant-primary-1);
   opacity: 0;
   border-radius: inherit;
-  transition: opacity 0.3s var(--bounce-transition);
+  transition: opacity var(--transition-duration) var(--bounce-transition);
   z-index: -1;
 }
 
 .dashboard-logo:hover::after {
-  opacity: 0.05;
+  opacity: 0.5;
+}
+
+/* 收缩时图标大小 */
+.ant-menu-item-icon {
+  min-width: 16px !important;
+  transition: margin var(--transition-duration) var(--transition-timing) !important;
+}
+
+.ant-menu-title-content {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all var(--transition-duration) var(--transition-timing) !important;
+}
+
+.dashboard-sider.collapsed .ant-menu-title-content {
+  opacity: 0;
+  transform: translateX(-10px);
+  margin-left: 0;
+  width: 0;
+}
+
+.settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin: 12px;
+    padding: 12px;
+  }
+  
+  .settings-container,
+  .home-container {
+    max-width: 100%;
+  }
 }
 
 @keyframes fadeIn {
@@ -205,4 +268,32 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.dashboard-sider-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboard-sider-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-sider-menu::-webkit-scrollbar-thumb {
+  background: var(--ant-primary-3);
+  border-radius: 2px;
+}
+
+.dashboard-sider-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--ant-primary-4);
+}
+
+.dashboard-sider-menu::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ant-primary-1);
+  opacity: 0.05;
 }

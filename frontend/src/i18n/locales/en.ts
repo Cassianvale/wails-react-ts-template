@@ -1,0 +1,70 @@
+export default {
+  common: {
+    loading: 'Loading...',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    save: 'Save',
+    delete: 'Delete',
+    edit: 'Edit',
+    back: 'Back',
+  },
+  header: {
+    theme: {
+      light: 'Light Mode',
+      dark: 'Dark Mode',
+      system: 'System',
+    },
+    language: {
+      en: 'English',
+      zh: '中文',
+    },
+  },
+  menu: {
+    home: 'Home',
+    dashboard: 'Dashboard',
+    settings: 'Settings',
+    profile: 'Profile',
+    editProfile: 'Edit Profile',
+    switchAccount: 'Switch Account',
+    logout: 'Logout',
+    collapse: 'Collapse Menu',
+    expand: 'Expand Menu',
+    online: 'Online',
+    offline: 'Offline',
+    keySimulation: 'Key Simulation',
+    macroEditor: 'Macro Editor',
+    modeSettings: 'Mode Settings',
+    about: 'About',
+  },
+  pages: {
+    home: {
+      title: 'Home',
+      totalTasks: 'Total Tasks',
+      activeTasks: 'Active Tasks',
+      completedTasks: 'Completed Tasks',
+    },
+    settings: {
+      title: 'Settings',
+      notifications: 'Enable Notifications',
+      autoStart: 'Auto Start',
+      theme: {
+        title: 'Theme Settings',
+        light: 'Light Theme',
+        dark: 'Dark Theme',
+        system: 'System Theme',
+      },
+      language: {
+        title: 'Language Settings',
+        en: 'English',
+        zh: 'Chinese',
+      },
+    },
+  },
+  settings: {
+    title: 'Settings',
+    language: 'Language',
+    theme: 'Theme',
+    notifications: 'Notifications',
+    autoStart: 'Auto Start',
+  },
+};

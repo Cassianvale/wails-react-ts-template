@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Dropdown, theme } from 'antd';
-import { userMenuItems } from './config/menuConfig';
+import { useUserMenuItems } from './config/menuConfig';
+import { useTranslation } from 'react-i18next';
 import testAvatar from '../../../../assets/images/user_avatar.png';
 import type { MenuProps } from 'antd';
 
@@ -11,6 +12,8 @@ interface UserProfileProps {
 
 const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: themeMode }) => {
   const { token } = theme.useToken();
+  const { t } = useTranslation();
+  const userMenuItems = useUserMenuItems();
 
   const handleUserMenuClick: MenuProps['onClick'] = ({ key }) => {
     switch (key) {
@@ -43,47 +46,47 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
           onClick: handleUserMenuClick,
         }}
         trigger={['click']}
-        placement="topRight"
+        placement="top"
         arrow={{ pointAtCenter: true }}
       >
-        <div>
+        <div className="user-profile-content" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
           <Avatar
-            size={collapsed ? 32 : 40}
+            className="user-avatar"
             src={testAvatar}
             style={{
-              cursor: 'pointer',
-              transition: 'all 0.2s',
+              width: collapsed ? '32px' : '40px',
+              height: collapsed ? '32px' : '40px',
+              flexShrink: 0,
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           />
+          <div 
+            className="user-info"
+            style={{
+              opacity: collapsed ? 0 : 1,
+              maxWidth: collapsed ? 0 : '200px',
+              marginLeft: collapsed ? 0 : '12px',
+              visibility: collapsed ? 'hidden' : 'visible',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          >
+            <div className="user-name" style={{ color: token.colorText }}>
+              Admin User
+              <span
+                className="user-status"
+                style={{ backgroundColor: token.colorSuccess }}
+              />
+            </div>
+            <div className="user-status-text" style={{ color: token.colorTextSecondary }}>
+              {t('menu.online')}
+            </div>
+          </div>
         </div>
       </Dropdown>
-      {!collapsed && (
-        <div className="user-info">
-          <div 
-            className="user-name"
-            style={{ color: token.colorText }}
-          >
-            CassianVale
-            <div
-              className="user-status"
-              style={{
-                backgroundColor: token.colorSuccess,
-                boxShadow: `0 0 0 2px ${token.colorBgContainer}`,
-              }}
-            />
-          </div>
-          <div 
-            className="user-status-text"
-            style={{ color: token.colorTextSecondary }}
-          >
-            Online
-          </div>
-        </div>
-      )}
     </div>
   );
 });
 
 UserProfile.displayName = 'UserProfile';
 
-export default UserProfile; 
+export default UserProfile;

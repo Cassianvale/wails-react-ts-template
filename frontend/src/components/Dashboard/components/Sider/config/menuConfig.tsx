@@ -7,74 +7,84 @@ import {
   EditOutlined,
   UserSwitchOutlined,
   LogoutOutlined,
+  HomeOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import { MenuProps } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-export const mainMenuItems = [
-  {
-    key: '1',
-    icon: <UserOutlined />,
-    label: 'Home',
-    type: 'item',
-  },
-  {
-    key: '2',
-    icon: <KeyOutlined />,
-    label: 'Key Simulation',
-    type: 'item',
-  },
-  {
-    key: '3',
-    icon: <VideoCameraOutlined />,
-    label: 'Macro Editor',
-    type: 'item',
-  },
-  {
-    key: '4',
-    icon: <SettingOutlined />,
-    label: 'Mode Settings',
-    type: 'item',
-  },
-  {
-    key: '5',
-    icon: <InfoCircleOutlined />,
-    label: 'About',
-    type: 'item',
-  },
-  {
-    key: '6',
-    icon: <SettingOutlined />,
-    label: 'Settings',
-    type: 'item',
-  },
-] as MenuItem[];
+export const useMainMenuItems = (): MenuItem[] => {
+  const { t } = useTranslation();
 
-export const userMenuItems: MenuItem[] = [
-  {
-    key: 'profile',
-    icon: <UserOutlined />,
-    label: 'Profile',
-  },
-  {
-    key: 'edit',
-    icon: <EditOutlined />,
-    label: 'Edit Profile',
-  },
-  {
-    key: 'switch',
-    icon: <UserSwitchOutlined />,
-    label: 'Switch Account',
-  },
-  {
-    key: 'divider',
-    type: 'divider',
-  },
-  {
-    key: 'logout',
-    icon: <LogoutOutlined />,
-    label: 'Logout',
-    danger: true,
-  },
-];
+  return [
+    {
+      key: '/home',
+      icon: <HomeOutlined />,
+      label: t('menu.home'),
+      type: 'item',
+    },
+    {
+      key: '/key-simulation',
+      icon: <KeyOutlined />,
+      label: t('menu.keySimulation'),
+      type: 'item',
+    },
+    {
+      key: '/macro-editor',
+      icon: <VideoCameraOutlined />,
+      label: t('menu.macroEditor'),
+      type: 'item',
+    },
+    {
+      key: '/mode-settings',
+      icon: <SettingOutlined />,
+      label: t('menu.modeSettings'),
+      type: 'item',
+    },
+    {
+      key: '/about',
+      icon: <InfoCircleOutlined />,
+      label: t('menu.about'),
+      type: 'item',
+    },
+    {
+      key: '/settings',
+      icon: <SettingOutlined />,
+      label: t('menu.settings'),
+      type: 'item',
+    },
+  ];
+};
+
+export const useUserMenuItems = (): MenuItem[] => {
+  const { t } = useTranslation();
+
+  return [
+    {
+      key: 'profile',
+      icon: <UserOutlined />,
+      label: t('menu.profile'),
+    },
+    {
+      key: 'edit',
+      icon: <EditOutlined />,
+      label: t('menu.editProfile'),
+    },
+    {
+      key: 'switch',
+      icon: <UserSwitchOutlined />,
+      label: t('menu.switchAccount'),
+    },
+    {
+      key: 'divider',
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: t('menu.logout'),
+      danger: true,
+    },
+  ];
+};

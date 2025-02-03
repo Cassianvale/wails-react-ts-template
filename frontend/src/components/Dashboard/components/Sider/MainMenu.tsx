@@ -1,32 +1,40 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Menu } from 'antd';
-import { mainMenuItems } from './config/menuConfig';
-import type { MenuProps } from 'antd';
+import { useMainMenuItems } from './config/menuConfig';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/menu.css';
 
 interface MainMenuProps {
-  theme: 'dark' | 'light';
-  selectedKey: string;
-  onSelect: (key: string) => void;
+  theme?: 'light' | 'dark';
+  collapsed: boolean;
 }
 
-const MainMenu: React.FC<MainMenuProps> = React.memo(({ theme, selectedKey, onSelect }) => {
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
-    onSelect(e.key);
-  };
+const MainMenu: React.FC<MainMenuProps> = ({ theme = 'light', collapsed }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const mainMenuItems = useMainMenuItems();
+
+  const menuItems = useMemo(() => {
+    return mainMenuItems.map((item: any) => ({
+      key: item.key,
+      icon: item.icon,
+      label: item.label,
+      onClick: () => navigate(item.key),
+    }));
+  }, [mainMenuItems, navigate]);
 
   return (
-    <Menu
-      theme={theme}
-      mode="inline"
-      selectedKeys={[selectedKey]}
-      items={mainMenuItems}
-      onClick={handleMenuClick}
-      className="menu-container ant-menu"
-    />
+    <div className="menu-container">
+      <Menu
+        theme={theme}
+        mode="inline"
+        selectedKeys={[location.pathname]}
+        items={menuItems}
+        inlineCollapsed={collapsed}
+        style={{ border: 'none' }}
+      />
+    </div>
   );
-});
+};
 
-MainMenu.displayName = 'MainMenu';
-
-export default MainMenu; 
+export default MainMenu;

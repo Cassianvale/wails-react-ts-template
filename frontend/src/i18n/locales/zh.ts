@@ -1,0 +1,70 @@
+export default {
+  common: {
+    loading: '加载中...',
+    confirm: '确认',
+    cancel: '取消',
+    save: '保存',
+    delete: '删除',
+    edit: '编辑',
+    back: '返回',
+  },
+  header: {
+    theme: {
+      light: '浅色模式',
+      dark: '深色模式',
+      system: '跟随系统',
+    },
+    language: {
+      en: 'English',
+      zh: '中文',
+    },
+  },
+  menu: {
+    home: '首页',
+    dashboard: '仪表盘',
+    settings: '设置',
+    profile: '个人信息',
+    editProfile: '编辑资料',
+    switchAccount: '切换账号',
+    logout: '退出登录',
+    collapse: '收起菜单',
+    expand: '展开菜单',
+    online: '在线',
+    offline: '离线',
+    keySimulation: '按键模拟',
+    macroEditor: '宏编辑器',
+    modeSettings: '模式设置',
+    about: '关于',
+  },
+  pages: {
+    home: {
+      title: '首页',
+      totalTasks: '总任务数',
+      activeTasks: '进行中任务',
+      completedTasks: '已完成任务',
+    },
+    settings: {
+      title: '设置',
+      notifications: '启用通知',
+      autoStart: '开机自启动',
+      theme: {
+        title: '主题设置',
+        light: '浅色主题',
+        dark: '深色主题',
+        system: '跟随系统',
+      },
+      language: {
+        title: '语言设置',
+        en: '英语',
+        zh: '中文',
+      },
+    },
+  },
+  settings: {
+    title: '设置',
+    language: '语言',
+    theme: '主题',
+    notifications: '通知',
+    autoStart: '自动启动',
+  },
+};

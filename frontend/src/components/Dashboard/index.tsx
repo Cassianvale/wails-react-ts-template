@@ -1,81 +1,125 @@
-import React, { useState, useContext } from 'react';
-import { Layout, Button, theme } from 'antd';
+import React, { useState, useContext, useCallback } from 'react';
+import { Layout, Menu, Button, Tooltip } from 'antd';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { ThemeContext } from '../../App';
-import MainMenu from './components/Sider/MainMenu';
-import UserProfile from './components/Sider/UserProfile';
-import DashboardContent from './components/Content';
-import ThemeSelector from './components/Header/ThemeSelector';
-import WindowControls from './components/Header/WindowControls';
 import Logo from './components/Sider/Logo';
+import { useMainMenuItems } from './components/Sider/config/menuConfig';
+import ThemeSelector from './components/Header/ThemeSelector';
+import LanguageSelector from './components/Header/LanguageSelector';
+import WindowControls from './components/Header/WindowControls';
+import UserProfile from './components/Sider/UserProfile';
+import Home from '../../pages/Home';
+import Settings from '../../pages/Settings';
 import './styles/dashboard.css';
 import './styles/menu.css';
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Content } = Layout;
 
-const Dashboard: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState('1');
+const DashboardContent: React.FC = () => {
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(false);
-  const { token } = theme.useToken();
   const { themeMode, setThemeMode } = useContext(ThemeContext);
 
-  const currentTheme = themeMode === 'dark' ? 'dark' : 'light';
+  if (!themeMode || !setThemeMode) {
+    throw new Error('Theme context must be used within ThemeProvider');
+  }
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
+  const mainMenuItems = useMainMenuItems();
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    navigate(key);
+  };
+
+  const toggleSidebar = useCallback(() => {
+    setIsExpanded(prev => !prev);
+  }, []);
 
   return (
-    <Layout className="dashboard-layout" style={{ background: token.colorBgContainer }}>
+    <Layout className="dashboard-layout" style={{ background: 'var(--color-bg-container)' }}>
       <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        theme={currentTheme}
         className="dashboard-sider"
-        style={{ background: token.colorBgContainer }}
+        collapsible
+        collapsed={!isExpanded}
+        collapsedWidth={parseInt(getComputedStyle(document.documentElement)
+          .getPropertyValue('--sidebar-width-collapsed'))}
+        width={parseInt(getComputedStyle(document.documentElement)
+          .getPropertyValue('--sidebar-width-expanded'))}
+        style={{ 
+          background: 'var(--color-bg-container)',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0
+        }}
+        trigger={null}
       >
-        <Logo collapsed={collapsed} />
-        <div className="dashboard-sider-menu">
-          <MainMenu
-            theme={currentTheme}
-            selectedKey={selectedKey}
-            onSelect={setSelectedKey}
-          />
-          <UserProfile collapsed={collapsed} theme={currentTheme} />
-        </div>
+        <Logo collapsed={!isExpanded} />
+        <Menu
+          className="dashboard-sider-menu menu-container"
+          mode="inline"
+          items={mainMenuItems}
+          onClick={handleMenuClick}
+          selectedKeys={[location.pathname]}
+          theme={themeMode === 'dark' ? 'dark' : 'light'}
+        />
+        <UserProfile
+          collapsed={!isExpanded}
+          theme={themeMode === 'dark' ? 'dark' : 'light'}
+        />
       </Sider>
       <Layout
         className="dashboard-content-layout"
-        style={{ marginLeft: collapsed ? 80 : 200 }}
+        style={{ 
+          marginLeft: !isExpanded ? 64 : 200,
+          transition: 'margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
       >
         <Header className="dashboard-header">
           <div className="header-left">
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: '16px',
-                width: 48,
-                height: 48,
-              }}
-            />
+            <Tooltip title={!isExpanded ? t('menu.expand') : t('menu.collapse')}>
+              <Button
+                type="text"
+                icon={!isExpanded ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={toggleSidebar}
+                className="trigger-button"
+              />
+            </Tooltip>
           </div>
           <div className="header-right">
-            <ThemeSelector 
+            <LanguageSelector />
+            <ThemeSelector
               themeMode={themeMode}
               onThemeChange={setThemeMode}
             />
             <div className="header-divider" />
-            <WindowControls 
+            <WindowControls
               isAlwaysOnTop={isAlwaysOnTop}
               onAlwaysOnTopChange={setIsAlwaysOnTop}
             />
           </div>
         </Header>
-        <DashboardContent>
-          Content
-        </DashboardContent>
+        <Content className="dashboard-content">
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Content>
       </Layout>
     </Layout>
+  );
+};
+
+const Dashboard: React.FC = () => {
+  return (
+    <Router>
+      <DashboardContent />
+    </Router>
   );
 };
 

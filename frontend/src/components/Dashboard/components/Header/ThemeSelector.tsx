@@ -1,36 +1,37 @@
 import React from 'react';
-import { Button, Dropdown } from 'antd';
-import { ThemeMode } from '../../../../App';
-import { themeMenuItems, getThemeIcon } from './config/menuConfig';
+import { Dropdown, Button } from 'antd';
+import { useThemeMenuItems, getThemeIcon } from './config/menuConfig';
 
 interface ThemeSelectorProps {
-  themeMode: ThemeMode;
-  onThemeChange: (mode: ThemeMode) => void;
+  themeMode: 'system' | 'light' | 'dark';
+  onThemeChange: (theme: 'system' | 'light' | 'dark') => void;
 }
 
 const ThemeSelector: React.FC<ThemeSelectorProps> = ({
   themeMode,
   onThemeChange,
 }) => {
+  const themeMenuItems = useThemeMenuItems(themeMode);
+
   const handleThemeChange = ({ key }: { key: string }) => {
-    onThemeChange(key as ThemeMode);
+    onThemeChange(key as 'system' | 'light' | 'dark');
   };
 
   return (
-    <Dropdown 
-      menu={{ 
-        items: themeMenuItems, 
+    <Dropdown
+      menu={{
+        items: themeMenuItems,
         onClick: handleThemeChange,
-        selectedKeys: [themeMode]
-      }} 
+        selectedKeys: [themeMode],
+      }}
       placement="bottomRight"
       trigger={['click']}
     >
-      <Button 
+      <Button
         type="text"
         icon={getThemeIcon(themeMode)}
-        size="small"
         className="header-button"
+        size="small"
       />
     </Dropdown>
   );

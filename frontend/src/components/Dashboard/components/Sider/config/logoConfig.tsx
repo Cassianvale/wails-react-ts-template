@@ -11,7 +11,7 @@ interface LogoConfig {
 
 export const logoConfig: LogoConfig = {
   icon: <AppstoreOutlined />,
-  title: 'Wails Pro',
+  title: 'Wails3 Template',
   logoPath: LogoImage,
   onClick: () => {
     // 可以添加点击 logo 时的行为

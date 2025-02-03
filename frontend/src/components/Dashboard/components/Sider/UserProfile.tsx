@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Dropdown, theme } from 'antd';
-import { userMenuItems } from '../../config/menuConfig';
+import { userMenuItems } from './config/menuConfig';
 import testAvatar from '../../../../assets/images/user_avatar.png';
 import type { MenuProps } from 'antd';
 

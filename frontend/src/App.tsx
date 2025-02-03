@@ -1,7 +1,6 @@
 import { ConfigProvider, theme } from 'antd';
 import { createContext, useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard/index';
-import TitleBar from './components/TitleBar/index';
 
 export type ThemeMode = 'system' | 'dark' | 'light';
 
@@ -15,14 +14,10 @@ export const ThemeContext = createContext<ThemeContextType>({
   setThemeMode: () => {},
 });
 
-// 全局样式变量
-const TITLE_BAR_HEIGHT = '32px';
-
 const App = () => {
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [isDark, setIsDark] = useState(false);
 
-  // 监听系统主题变化
   useEffect(() => {
     if (themeMode === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -50,7 +45,6 @@ const App = () => {
         <style>
           {`
             :root {
-              --title-bar-height: ${TITLE_BAR_HEIGHT};
               --ant-primary-color: ${themeConfig.token.colorPrimary || '#1890ff'};
               --ant-primary-1: ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
               --bg-color: ${isDark ? '#141414' : '#ffffff'};
@@ -66,14 +60,7 @@ const App = () => {
           padding: 0,
           overflow: 'hidden',
         }}>
-          <TitleBar />
-          <div style={{ 
-            flex: 1,
-            overflow: 'hidden',
-            height: `calc(100vh - var(--title-bar-height))`,
-          }}>
-            <Dashboard />
-          </div>
+          <Dashboard />
         </div>
       </ThemeContext.Provider>
     </ConfigProvider>

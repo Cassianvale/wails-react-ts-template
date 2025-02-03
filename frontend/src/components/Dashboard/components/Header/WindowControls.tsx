@@ -7,7 +7,7 @@ import {
   PushpinOutlined, 
   PushpinFilled 
 } from '@ant-design/icons';
-import { GreetService } from '../../../../bindings/changeme';
+import { GreetService } from '../../../../../bindings/changeme';
 
 interface WindowControlsProps {
   isAlwaysOnTop: boolean;
@@ -31,32 +31,32 @@ const WindowControls: React.FC<WindowControlsProps> = ({
         icon={isAlwaysOnTop ? <PushpinFilled /> : <PushpinOutlined />} 
         onClick={handleAlwaysOnTop}
         size="small"
-        className="title-bar-button"
+        className="header-button"
       />
       <Button 
         type="text" 
         icon={<MinusOutlined />} 
         onClick={() => GreetService.Minimize()}
         size="small"
-        className="title-bar-button"
+        className="header-button"
       />
       <Button 
         type="text" 
         icon={<BorderOutlined />} 
         onClick={() => GreetService.Maximize()}
         size="small"
-        className="title-bar-button"
+        className="header-button"
       />
       <Button 
         type="text" 
         icon={<CloseOutlined />} 
         onClick={() => GreetService.Close()}
         size="small"
-        className="title-bar-button title-bar-button-danger"
+        className="header-button header-button-danger"
         danger
       />
     </>
   );
 };
 
-export default WindowControls; 
+export default WindowControls;

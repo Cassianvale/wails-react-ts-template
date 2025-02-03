@@ -30,4 +30,4 @@ export const getThemeIcon = (themeMode: string) => {
     default:
       return <BulbOutlined />;
   }
-}; 
+};

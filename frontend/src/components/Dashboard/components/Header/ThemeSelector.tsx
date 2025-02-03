@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Dropdown } from 'antd';
-import { ThemeMode } from '../../../App';
-import { themeMenuItems, getThemeIcon } from '../config/menuConfig';
+import { ThemeMode } from '../../../../App';
+import { themeMenuItems, getThemeIcon } from './config/menuConfig';
 
 interface ThemeSelectorProps {
   themeMode: ThemeMode;
@@ -30,10 +30,10 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         type="text"
         icon={getThemeIcon(themeMode)}
         size="small"
-        className="title-bar-button"
+        className="header-button"
       />
     </Dropdown>
   );
 };
 
-export default ThemeSelector; 
+export default ThemeSelector;

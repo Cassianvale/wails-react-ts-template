@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { mainMenuItems } from '../../config/menuConfig';
+import { mainMenuItems } from './config/menuConfig';
 import type { MenuProps } from 'antd';
 import '../../styles/menu.css';
 

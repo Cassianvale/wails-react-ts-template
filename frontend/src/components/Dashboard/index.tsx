@@ -5,6 +5,8 @@ import { ThemeContext } from '../../App';
 import MainMenu from './components/Sider/MainMenu';
 import UserProfile from './components/Sider/UserProfile';
 import DashboardContent from './components/Content';
+import ThemeSelector from './components/Header/ThemeSelector';
+import WindowControls from './components/Header/WindowControls';
 import './styles/dashboard.css';
 import './styles/menu.css';
 
@@ -13,8 +15,9 @@ const { Header, Sider } = Layout;
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState('1');
+  const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(false);
   const { token } = theme.useToken();
-  const { themeMode } = useContext(ThemeContext);
+  const { themeMode, setThemeMode } = useContext(ThemeContext);
 
   const currentTheme = themeMode === 'dark' ? 'dark' : 'light';
 
@@ -36,28 +39,43 @@ const Dashboard: React.FC = () => {
             Wails Pro
           </div>
         </div>
-        <MainMenu
-          theme={currentTheme}
-          selectedKey={selectedKey}
-          onSelect={setSelectedKey}
-        />
-        <UserProfile collapsed={collapsed} theme={currentTheme} />
+        <div className="dashboard-sider-menu">
+          <MainMenu
+            theme={currentTheme}
+            selectedKey={selectedKey}
+            onSelect={setSelectedKey}
+          />
+          <UserProfile collapsed={collapsed} theme={currentTheme} />
+        </div>
       </Sider>
       <Layout
         className="dashboard-content-layout"
         style={{ marginLeft: collapsed ? 80 : 200 }}
       >
         <Header className="dashboard-header">
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 48,
-              height: 48,
-            }}
-          />
+          <div className="header-left">
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: '16px',
+                width: 48,
+                height: 48,
+              }}
+            />
+          </div>
+          <div className="header-right">
+            <ThemeSelector 
+              themeMode={themeMode}
+              onThemeChange={setThemeMode}
+            />
+            <div className="header-divider" />
+            <WindowControls 
+              isAlwaysOnTop={isAlwaysOnTop}
+              onAlwaysOnTopChange={setIsAlwaysOnTop}
+            />
+          </div>
         </Header>
         <DashboardContent>
           Content
@@ -67,4 +85,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

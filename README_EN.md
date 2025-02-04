@@ -1,6 +1,6 @@
 # wails-react-ts-template
 
-[中文](https://github.com/wailsapp/wails-react-ts-template/blob/main/README.md) / English
+[中文](https://github.com/Cassianvale/wails-react-ts-template/blob/main/README.md) / English
 
 ## Features
 

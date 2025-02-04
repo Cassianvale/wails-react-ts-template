@@ -37,13 +37,13 @@
   - 应用完整性校验
 
 ## Development
-1. 安装 wails3
+1. 安装 wails3  
 `go install -v github.com/wailsapp/wails/v3/cmd/wails3@latest`
 
-2. 运行 wails3
+2. 运行 wails3  
 `wails3 dev`
 
-3. 构建应用程序
+3. 构建应用程序  
 `wails3 build`
 
 ## Wails3 文档

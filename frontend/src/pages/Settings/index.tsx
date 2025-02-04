@@ -5,52 +5,54 @@ import {
   BellOutlined,
   PoweroffOutlined,
 } from '@ant-design/icons';
-import { css } from '@emotion/css';
+import styled from 'styled-components';
 
-const styles = {
-  settingsPage: css`
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px;
+// 样式组件
+const SettingsContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
 
-    @media (max-width: 768px) {
-      max-width: 100%;
-      padding: 16px;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 16px;
+  }
+`;
+
+const SettingsSection = styled.div`
+  padding: 16px 0;
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 24px;
+    color: var(--ant-primary-7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .anticon {
+      font-size: 20px;
     }
-  `,
-  settingsSection: css`
-    padding: 16px 0;
+  }
+`;
 
-    h2 {
-      font-size: 18px;
-      margin-bottom: 24px;
-      color: var(--ant-primary-7);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+const StyledFormItem = styled(Form.Item)`
+  margin-bottom: 16px;
+  max-width: 400px;
 
-      .anticon {
-        font-size: 20px;
-      }
-    }
-  `,
-  settingItem: css`
-    margin-bottom: 16px;
-    max-width: 400px;
+  .ant-form-item-label > label {
+    font-weight: 500;
+    color: var(--ant-primary-6);
+  }
 
-    .ant-form-item-label > label {
-      font-weight: 500;
-      color: var(--ant-primary-6);
-    }
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+`;
 
-    @media (max-width: 768px) {
-      max-width: 100%;
-    }
-  `,
-  divider: css`
-    margin: 8px 0;
-  `
-};
+const StyledDivider = styled(Divider)`
+  margin: 8px 0;
+`;
 
 const Settings: React.FC = () => {
   const { t } = useTranslation();
@@ -61,44 +63,42 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className={styles.settingsPage}>
-      <div className={styles.settingsSection}>
+    <SettingsContainer>
+      <SettingsSection>
         <h2>
           <BellOutlined /> {t('settings.notifications')}
         </h2>
         <Form form={form} layout="vertical">
-          <Form.Item 
+          <StyledFormItem 
             label={t('settings.enableNotifications')}
             name="notifications"
-            className={styles.settingItem}
           >
             <Switch 
               defaultChecked 
               onChange={(checked) => handleSettingChange('notifications', checked)}
             />
-          </Form.Item>
+          </StyledFormItem>
         </Form>
-      </div>
+      </SettingsSection>
 
-      <Divider className={styles.divider} />
+      <StyledDivider />
 
-      <div className={styles.settingsSection}>
+      <SettingsSection>
         <h2>
           <PoweroffOutlined /> {t('settings.system')}
         </h2>
         <Form form={form} layout="vertical">
-          <Form.Item 
+          <StyledFormItem 
             label={t('settings.autoStart')}
             name="autoStart"
-            className={styles.settingItem}
           >
             <Switch 
               onChange={(checked) => handleSettingChange('autoStart', checked)}
             />
-          </Form.Item>
+          </StyledFormItem>
         </Form>
-      </div>
-    </div>
+      </SettingsSection>
+    </SettingsContainer>
   );
 };
 

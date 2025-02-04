@@ -4,11 +4,102 @@ import { useUserMenuItems } from './config/menuConfig';
 import { useTranslation } from 'react-i18next';
 import testAvatar from '../../../../assets/images/user_avatar.png';
 import type { MenuProps } from 'antd';
+import styled from 'styled-components';
 
 interface UserProfileProps {
   collapsed: boolean;
   theme: 'dark' | 'light';
 }
+
+const StyledUserProfile = styled.div<{ $bgColor: string }>`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  background-color: var(--color-bg-container);
+  transition: var(--transition-properties);
+
+  &:hover {
+    background-color: var(--color-bg-container-hover);
+  }
+
+  &[data-theme='dark'] {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    &:hover {
+      background-color: var(--color-bg-container-hover);
+    }
+  }
+`;
+
+const StyledProfileContent = styled.div<{ $collapsed: boolean }>`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  transition: var(--transition-properties);
+  justify-content: ${props => props.$collapsed ? 'center' : 'flex-start'};
+`;
+
+const StyledAvatar = styled(Avatar)<{ $collapsed: boolean }>`
+  width: ${props => props.$collapsed ? '32px' : '40px'};
+  height: ${props => props.$collapsed ? '32px' : '40px'};
+  flex-shrink: 0;
+  transition: var(--transition-properties);
+  
+  [data-theme='dark'] & {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const StyledUserInfo = styled.div<{ $collapsed: boolean }>`
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-left: ${props => props.$collapsed ? 0 : '12px'};
+  flex: 1;
+  overflow: hidden;
+  opacity: ${props => props.$collapsed ? 0 : 1};
+  max-width: ${props => props.$collapsed ? 0 : '200px'};
+  visibility: ${props => props.$collapsed ? 'hidden' : 'visible'};
+  transform: translateX(${props => props.$collapsed ? '-8px' : 0});
+  transition: var(--transition-properties);
+`;
+
+const StyledUserName = styled.div<{ $textColor: string }>`
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: ${props => props.$textColor};
+`;
+
+const StyledUserStatus = styled.span<{ $color: string }>`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: ${props => props.$color};
+`;
+
+const StyledStatusText = styled.div<{ $textColor: string }>`
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${props => props.$textColor};
+`;
 
 const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: themeMode }) => {
   const { token } = theme.useToken();
@@ -33,12 +124,7 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
   };
 
   return (
-    <div 
-      className="user-profile"
-      style={{
-        background: token.colorBgContainer,
-      }}
-    >
+    <StyledUserProfile $bgColor={token.colorBgContainer}>
       <Dropdown
         menu={{
           items: userMenuItems,
@@ -48,41 +134,24 @@ const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: 
         placement="top"
         arrow={{ pointAtCenter: true }}
       >
-        <div className="user-profile-content" style={{ justifyContent: collapsed ? 'center' : 'flex-start' }}>
-          <Avatar
-            className="user-avatar"
+        <StyledProfileContent $collapsed={collapsed}>
+          <StyledAvatar
+            $collapsed={collapsed}
             src={testAvatar}
-            style={{
-              width: collapsed ? '32px' : '40px',
-              height: collapsed ? '32px' : '40px',
-              flexShrink: 0,
-              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
+            className="user-avatar"
           />
-          <div 
-            className="user-info"
-            style={{
-              opacity: collapsed ? 0 : 1,
-              maxWidth: collapsed ? 0 : '200px',
-              marginLeft: collapsed ? 0 : '12px',
-              visibility: collapsed ? 'hidden' : 'visible',
-              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            <div className="user-name" style={{ color: token.colorText }}>
+          <StyledUserInfo $collapsed={collapsed}>
+            <StyledUserName $textColor={token.colorText}>
               Admin User
-              <span
-                className="user-status"
-                style={{ backgroundColor: token.colorSuccess }}
-              />
-            </div>
-            <div className="user-status-text" style={{ color: token.colorTextSecondary }}>
+              <StyledUserStatus $color={token.colorSuccess} />
+            </StyledUserName>
+            <StyledStatusText $textColor={token.colorTextSecondary}>
               {t('menu.online')}
-            </div>
-          </div>
-        </div>
+            </StyledStatusText>
+          </StyledUserInfo>
+        </StyledProfileContent>
       </Dropdown>
-    </div>
+    </StyledUserProfile>
   );
 });
 

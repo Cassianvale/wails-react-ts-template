@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useMemo } from 'react';
 import { Menu } from 'antd';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
@@ -9,37 +9,33 @@ import ThemeSelector from './components/Header/ThemeSelector';
 import LanguageSelector from './components/Header/LanguageSelector';
 import WindowControls from './components/Header/WindowControls';
 import UserProfile from './components/Sider/UserProfile';
-import Home from '../../pages/Home';
-import Settings from '../../pages/Settings';
 import { StyledSider } from './components/Sider/styles';
-import {
-  GlobalStyle,
-  StyledLayout,
-  StyledHeader,
-  HeaderLeft,
-  HeaderRight,
-  HeaderDivider,
-  TriggerButton,
-  StyledContent,
-  ContentLayout
-} from './styles';
+import { StyledHeader,HeaderLeft,HeaderRight,HeaderDivider,TriggerButton } from './components/Header/styles';
+import { StyledContent, ContentLayout } from './components/Content/styles';
+import { GlobalStyle, StyledLayout } from './GlobalStyles';
+import { routes } from '../../routes/config';
 
 const DashboardContent: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(false);
   const { themeMode, setThemeMode } = useContext(ThemeContext);
 
-  if (!themeMode || !setThemeMode) {
-    throw new Error('Theme context must be used within ThemeProvider');
-  }
-
   const navigate = useNavigate();
   const location = useLocation();
   const mainMenuItems = useMainMenuItems();
 
-  const handleMenuClick = ({ key }: { key: string }) => {
+  // 缓存计算值
+  const siderWidth = useMemo(() => ({
+    collapsed: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width-collapsed')),
+    expanded: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width-expanded'))
+  }), []);
+
+  // 缓存主题值
+  const currentTheme = useMemo(() => themeMode === 'dark' ? 'dark' : 'light', [themeMode]);
+
+  const handleMenuClick = useCallback(({ key }: { key: string }) => {
     navigate(key);
-  };
+  }, [navigate]);
 
   const toggleSidebar = useCallback(() => {
     setIsExpanded(prev => !prev);
@@ -51,10 +47,8 @@ const DashboardContent: React.FC = () => {
       <StyledSider
         collapsible
         collapsed={!isExpanded}
-        collapsedWidth={parseInt(getComputedStyle(document.documentElement)
-          .getPropertyValue('--sidebar-width-collapsed'))}
-        width={parseInt(getComputedStyle(document.documentElement)
-          .getPropertyValue('--sidebar-width-expanded'))}
+        collapsedWidth={siderWidth.collapsed}
+        width={siderWidth.expanded}
         trigger={null}
       >
         <Logo collapsed={!isExpanded} />
@@ -64,11 +58,11 @@ const DashboardContent: React.FC = () => {
           items={mainMenuItems}
           onClick={handleMenuClick}
           selectedKeys={[location.pathname]}
-          theme={themeMode === 'dark' ? 'dark' : 'light'}
+          theme={currentTheme}
         />
         <UserProfile
           collapsed={!isExpanded}
-          theme={themeMode === 'dark' ? 'dark' : 'light'}
+          theme={currentTheme}
         />
       </StyledSider>
       <ContentLayout $collapsed={!isExpanded}>
@@ -95,8 +89,9 @@ const DashboardContent: React.FC = () => {
         </StyledHeader>
         <StyledContent>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/settings" element={<Settings />} />
+            {routes.map(route => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
           </Routes>
         </StyledContent>
       </ContentLayout>

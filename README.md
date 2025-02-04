@@ -1,4 +1,4 @@
-# react-wails3
+# wails-react-ts-template
 
 ## Development
 1. Install wails3

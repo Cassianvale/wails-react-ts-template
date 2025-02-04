@@ -3,7 +3,7 @@
 #
 # The lines below are called `modelines`. See `:help modeline`
 
-name: "react-wails3.exe"
+name: "wails-react-ts-template.exe"
 arch: ${GOARCH}
 platform: "linux"
 version: "0.1.0"
@@ -17,12 +17,12 @@ license: "MIT"
 release: "1"
 
 contents:
-  - src: "./bin/react-wails3.exe"
-    dst: "/usr/local/bin/react-wails3.exe"
+  - src: "./bin/wails-react-ts-template.exe"
+    dst: "/usr/local/bin/wails-react-ts-template.exe"
   - src: "./build/appicon.png"
-    dst: "/usr/share/icons/hicolor/128x128/apps/react-wails3.exe.png"
-  - src: "./build/linux/react-wails3.exe.desktop"
-    dst: "/usr/share/applications/react-wails3.exe.desktop"
+    dst: "/usr/share/icons/hicolor/128x128/apps/wails-react-ts-template.exe.png"
+  - src: "./build/linux/wails-react-ts-template.exe.desktop"
+    dst: "/usr/share/applications/wails-react-ts-template.exe.desktop"
 
 depends:
   - gtk3

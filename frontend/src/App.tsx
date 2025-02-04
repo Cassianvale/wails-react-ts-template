@@ -75,10 +75,10 @@ const App = () => {
             :root {
               --ant-primary-color: ${themeConfig.token.colorPrimary || '#1890ff'};
               --ant-primary-1: ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'};
-              --bg-color: ${isDark ? '#141414' : '#ffffff'};
+              --bg-color: ${isDark ? 'rgba(20, 20, 20, 0)' : 'rgba(255, 255, 255, 0)'};
             }
             body {
-              background-color: var(--bg-color);
+              background-color: transparent;
             }
           `}
         </style>
@@ -92,6 +92,7 @@ const App = () => {
             margin: 0,
             padding: 0,
             overflow: 'hidden',
+            backgroundColor: isDark ? 'rgba(20, 20, 20, 0.6)' : 'rgba(255, 255, 255, 0.6)',
           }}
         >
           <Dashboard />

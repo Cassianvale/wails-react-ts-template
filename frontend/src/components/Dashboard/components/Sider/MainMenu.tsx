@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface MainMenuProps {
-  theme?: 'system' | 'light' | 'dark';
+  theme?: 'light' | 'dark';
   collapsed: boolean;
 }
 
@@ -14,27 +14,15 @@ const StyledMenuContainer = styled.div`
   border-right: none !important;
 `;
 
-const StyledMenu = styled(Menu)`
+const StyledMenu = styled(Menu)<{ collapsed?: boolean }>`
   &.ant-menu {
     padding: 4px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     background: transparent;
     border-inline-end: none !important;
+    border-right: none !important;
 
     .ant-menu-item {
-      position: relative;
-      margin: 4px !important;
-      padding: 0 16px !important;
-      border-radius: 6px !important;
-      background: transparent !important;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      transform: none !important;
-      will-change: background-color;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      height: 40px !important;
-      line-height: 40px !important;
-
       .anticon {
         font-size: 18px;
         margin-right: ${props => props.collapsed ? '0' : '10px'};

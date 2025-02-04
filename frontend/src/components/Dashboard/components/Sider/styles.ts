@@ -10,13 +10,15 @@ export const StyledSider = styled(Sider)`
   bottom: 0;
   z-index: 100;
   height: 100%;
-  background-color: var(--bg-color) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background-color: var(--color-bg-container) !important;
+  transition: var(--transition-properties) !important;
 
   .ant-layout-sider-children {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: var(--color-bg-container);
+    transition: var(--transition-properties);
   }
 
   &.ant-layout-sider-collapsed {
@@ -30,8 +32,11 @@ export const StyledSider = styled(Sider)`
           opacity: 0;
           width: 0;
           margin-left: 0;
+          transition: var(--transition-properties);
         }
       }
     }
   }
+
+
 `;

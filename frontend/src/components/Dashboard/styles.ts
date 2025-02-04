@@ -12,6 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     --bounce-transition: cubic-bezier(0.37, 0, 0.63, 1.4);
     --sidebar-width-expanded: 200px;
     --sidebar-width-collapsed: 64px;
+    --color-bg-container: var(--ant-color-bg-container);
+    --color-bg-container-hover: var(--ant-color-bg-container-hover);
   }
 
   .theme-light {
@@ -21,10 +23,32 @@ export const GlobalStyle = createGlobalStyle`
   .theme-dark {
     --logo-color: #ffffff;
   }
+
+  .ant-layout-sider,
+  .dashboard-sider-menu,
+  .ant-layout-sider-children,
+  .ant-layout-header,
+  .ant-layout-content {
+    background-color: var(--color-bg-container) !important;
+    transition: var(--transition-properties) !important;
+  }
+
+  .ant-layout {
+    transition: var(--transition-properties) !important;
+  }
+
+  .ant-layout-sider {
+    border-right: none !important;
+  }
+
+  .ant-menu {
+    border-inline-end: none !important;
+  }
 `;
 
 export const StyledLayout = styled(Layout)`
   height: 100vh;
+  transition: var(--transition-properties);
 `;
 
 export const StyledHeader = styled(Header)`
@@ -39,14 +63,16 @@ export const StyledHeader = styled(Header)`
   top: 0;
   z-index: 99;
   --wails-draggable: drag;
+  transition: var(--transition-properties);
 `;
 
 export const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 16px;
+  padding-left: 0px;
   height: 100%;
   --wails-draggable: no-drag;
+  transition: var(--transition-properties);
 `;
 
 export const HeaderRight = styled.div`
@@ -56,6 +82,7 @@ export const HeaderRight = styled.div`
   gap: 8px;
   height: 100%;
   --wails-draggable: no-drag;
+  transition: var(--transition-properties);
 `;
 
 export const HeaderDivider = styled.div`
@@ -63,6 +90,7 @@ export const HeaderDivider = styled.div`
   height: 16px;
   background: var(--ant-primary-1);
   margin: 0 8px;
+  transition: var(--transition-properties);
 `;
 
 export const HeaderButton = styled(Button)<{ $danger?: boolean }>`
@@ -78,6 +106,7 @@ export const HeaderButton = styled(Button)<{ $danger?: boolean }>`
   margin: 0 1px;
   will-change: background-color, transform;
   transform: translateZ(0);
+  transition: var(--transition-properties);
 
   &:hover {
     background-color: ${props => props.$danger ? 'var(--ant-color-error-bg)' : 'var(--ant-primary-1)'};
@@ -91,6 +120,7 @@ export const TriggerButton = styled(Button)`
   font-size: 16px;
   cursor: pointer;
   transition: color 0.3s;
+  transition: var(--transition-properties);
 `;
 
 export const StyledContent = styled(Content)`
@@ -101,6 +131,7 @@ export const StyledContent = styled(Content)`
   opacity: 0;
   animation: fadeIn 0.3s var(--transition-timing) forwards;
   background-color: var(--color-bg-container);
+  transition: var(--transition-properties);
 
   @keyframes fadeIn {
     from {
@@ -119,6 +150,7 @@ export const ContentCard = styled.div`
               0 2px 4px 0 rgba(0, 0, 0, 0.02);
   background-color: var(--color-bg-container);
   margin-bottom: 16px;
+  transition: var(--transition-properties);
 
   .ant-card-body {
     padding: 20px;
@@ -131,6 +163,7 @@ export const ContentLayout = styled(Layout)<{ $collapsed: boolean }>`
   transition: var(--transition-properties);
   will-change: margin-left;
   transform: translateZ(0);
+  transition: var(--transition-properties);
 `;
 
 export const StyledLogo = styled.div<{ $collapsed: boolean }>`
@@ -143,13 +176,14 @@ export const StyledLogo = styled.div<{ $collapsed: boolean }>`
   overflow: hidden;
   transition: all var(--transition-duration) var(--spring-transition);
   will-change: transform;
+  transition: var(--transition-properties);
   
   &:hover {
     transform: scale(1.02);
   }
 `;
 
-export const LogoIcon = styled.div`
+export const LogoIcon = styled.div<{ $collapsed?: boolean }>`
   min-width: 32px;
   height: 32px;
   display: flex;
@@ -159,6 +193,7 @@ export const LogoIcon = styled.div`
   flex-shrink: 0;
   transition: all var(--transition-duration) var(--spring-transition);
   will-change: transform;
+  transition: var(--transition-properties);
 
   img {
     width: ${props => props.$collapsed ? '24px' : '32px'};
@@ -180,4 +215,5 @@ export const LogoText = styled.div<{ $collapsed: boolean }>`
   visibility: ${props => props.$collapsed ? 'hidden' : 'visible'};
   position: absolute;
   left: 48px;
+  transition: var(--transition-properties);
 `;

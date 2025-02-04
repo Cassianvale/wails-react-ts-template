@@ -22,17 +22,17 @@ const StyledUserProfile = styled.div<{ $bgColor: string }>`
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  background-color: ${props => props.$bgColor};
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--color-bg-container);
+  transition: var(--transition-properties);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.025);
+    background-color: var(--color-bg-container-hover);
   }
 
   &[data-theme='dark'] {
     border-top-color: rgba(255, 255, 255, 0.08);
     &:hover {
-      background-color: rgba(255, 255, 255, 0.025);
+      background-color: var(--color-bg-container-hover);
     }
   }
 `;
@@ -42,7 +42,7 @@ const StyledProfileContent = styled.div<{ $collapsed: boolean }>`
   align-items: center;
   width: 100%;
   padding: 12px 0;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-properties);
   justify-content: ${props => props.$collapsed ? 'center' : 'flex-start'};
 `;
 
@@ -50,7 +50,7 @@ const StyledAvatar = styled(Avatar)<{ $collapsed: boolean }>`
   width: ${props => props.$collapsed ? '32px' : '40px'};
   height: ${props => props.$collapsed ? '32px' : '40px'};
   flex-shrink: 0;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-properties);
   
   [data-theme='dark'] & {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -68,7 +68,7 @@ const StyledUserInfo = styled.div<{ $collapsed: boolean }>`
   max-width: ${props => props.$collapsed ? 0 : '200px'};
   visibility: ${props => props.$collapsed ? 'hidden' : 'visible'};
   transform: translateX(${props => props.$collapsed ? '-8px' : 0});
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-properties);
 `;
 
 const StyledUserName = styled.div<{ $textColor: string }>`

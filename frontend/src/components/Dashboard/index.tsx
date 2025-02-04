@@ -1,8 +1,7 @@
 import React, { useState, useContext, useCallback } from 'react';
-import { Layout, Menu, Button, Tooltip } from 'antd';
+import { Menu } from 'antd';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
 import { ThemeContext } from '../../App';
 import Logo from './components/Sider/Logo';
 import { useMainMenuItems } from './components/Sider/config/menuConfig';
@@ -12,10 +11,18 @@ import WindowControls from './components/Header/WindowControls';
 import UserProfile from './components/Sider/UserProfile';
 import Home from '../../pages/Home';
 import Settings from '../../pages/Settings';
-import './styles/dashboard.css';
-import './styles/menu.css';
-
-const { Header, Sider, Content } = Layout;
+import { StyledSider } from './components/Sider/styles';
+import {
+  GlobalStyle,
+  StyledLayout,
+  StyledHeader,
+  HeaderLeft,
+  HeaderRight,
+  HeaderDivider,
+  TriggerButton,
+  StyledContent,
+  ContentLayout
+} from './styles';
 
 const DashboardContent: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -28,7 +35,6 @@ const DashboardContent: React.FC = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation();
   const mainMenuItems = useMainMenuItems();
 
   const handleMenuClick = ({ key }: { key: string }) => {
@@ -40,22 +46,15 @@ const DashboardContent: React.FC = () => {
   }, []);
 
   return (
-    <Layout className="dashboard-layout" style={{ background: 'var(--color-bg-container)' }}>
-      <Sider
-        className="dashboard-sider"
+    <StyledLayout>
+      <GlobalStyle />
+      <StyledSider
         collapsible
         collapsed={!isExpanded}
         collapsedWidth={parseInt(getComputedStyle(document.documentElement)
           .getPropertyValue('--sidebar-width-collapsed'))}
         width={parseInt(getComputedStyle(document.documentElement)
           .getPropertyValue('--sidebar-width-expanded'))}
-        style={{ 
-          background: 'var(--color-bg-container)',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0
-        }}
         trigger={null}
       >
         <Logo collapsed={!isExpanded} />
@@ -71,47 +70,37 @@ const DashboardContent: React.FC = () => {
           collapsed={!isExpanded}
           theme={themeMode === 'dark' ? 'dark' : 'light'}
         />
-      </Sider>
-      <Layout
-        className="dashboard-content-layout"
-        style={{ 
-          marginLeft: !isExpanded ? 64 : 200,
-          transition: 'margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      >
-        <Header className="dashboard-header">
-          <div className="header-left">
-            <Tooltip title={!isExpanded ? t('menu.expand') : t('menu.collapse')}>
-              <Button
-                type="text"
-                icon={!isExpanded ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={toggleSidebar}
-                className="trigger-button"
-              />
-            </Tooltip>
-          </div>
-          <div className="header-right">
+      </StyledSider>
+      <ContentLayout $collapsed={!isExpanded}>
+        <StyledHeader>
+          <HeaderLeft>
+            <TriggerButton
+              type="text"
+              icon={!isExpanded ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={toggleSidebar}
+            />
+          </HeaderLeft>
+          <HeaderRight>
             <LanguageSelector />
             <ThemeSelector
               themeMode={themeMode}
               onThemeChange={setThemeMode}
             />
-            <div className="header-divider" />
+            <HeaderDivider />
             <WindowControls
               isAlwaysOnTop={isAlwaysOnTop}
               onAlwaysOnTopChange={setIsAlwaysOnTop}
             />
-          </div>
-        </Header>
-        <Content className="dashboard-content">
+          </HeaderRight>
+        </StyledHeader>
+        <StyledContent>
           <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/settings" element={<Settings />} />
             <Route path="/" element={<Home />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
-        </Content>
-      </Layout>
-    </Layout>
+        </StyledContent>
+      </ContentLayout>
+    </StyledLayout>
   );
 };
 

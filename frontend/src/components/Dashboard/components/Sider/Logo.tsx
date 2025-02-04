@@ -1,26 +1,24 @@
 import React from 'react';
-import { logoConfig } from './config/logoConfig';
+import { useNavigate } from 'react-router-dom';
+import { StyledLogo, LogoIcon, LogoText } from '../../styles';
+import logo from '../../../../assets/images/logo.svg';
 
 interface LogoProps {
-  collapsed?: boolean;
+  collapsed: boolean;
 }
 
 const Logo: React.FC<LogoProps> = ({ collapsed }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="dashboard-logo" onClick={logoConfig.onClick}>
-      <div className="dashboard-logo-icon">
-        {logoConfig.logoPath ? (
-          <img src={logoConfig.logoPath} alt="logo" />
-        ) : (
-          logoConfig.icon
-        )}
-      </div>
-      {!collapsed && (
-        <div className="dashboard-logo-text">
-          {logoConfig.title}
-        </div>
-      )}
-    </div>
+    <StyledLogo $collapsed={collapsed} onClick={() => navigate('/')}>
+      <LogoIcon>
+        <img src={logo} alt="Logo" />
+      </LogoIcon>
+      <LogoText $collapsed={collapsed}>
+        Wails + React
+      </LogoText>
+    </StyledLogo>
   );
 };
 

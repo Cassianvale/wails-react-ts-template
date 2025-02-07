@@ -16,7 +16,7 @@ export const StyledSider = styled(Sider)`
   top: 0;
   bottom: 0;
   z-index: 100;
-  height: 100%;
+  height: 100vh;
   background-color: var(--color-bg-container) !important;
   /* spring 动画过渡 */
   transition: all var(--transition-duration) var(--spring-transition) !important;
@@ -29,6 +29,8 @@ export const StyledSider = styled(Sider)`
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: ${props => props.collapsed ? '64px' : '200px'} !important;
+    transition: width var(--transition-duration) var(--spring-transition);
     background-color: var(--color-bg-container);
     transition: background-color var(--transition-duration) var(--transition-timing);
   }

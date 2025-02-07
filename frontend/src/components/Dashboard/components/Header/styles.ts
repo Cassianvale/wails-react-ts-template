@@ -15,34 +15,37 @@ export const StyledHeader = styled(Header)`
   top: 0;
   z-index: 99;
   --wails-draggable: drag;
-  transition: var(--transition-properties);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(8px);
+  transition: background-color var(--transition-duration) var(--transition-timing);
 `;
 
 export const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 0px;
+  padding-left: 4px;
   height: 100%;
   --wails-draggable: no-drag;
-  transition: var(--transition-properties);
+  transition: padding var(--transition-duration) var(--spring-transition);
 `;
 
 export const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   padding-right: 16px;
-  gap: 8px;
+  gap: 10px;
   height: 100%;
   --wails-draggable: no-drag;
-  transition: var(--transition-properties);
+  transition: padding var(--transition-duration) var(--spring-transition);
 `;
 
 export const HeaderDivider = styled.div`
   width: 1px;
-  height: 16px;
+  height: 20px;
   background: var(--ant-primary-1);
-  margin: 0 8px;
-  transition: var(--transition-properties);
+  margin: 0 10px;
+  opacity: 0.6;
+  transition: background-color var(--transition-duration) var(--transition-timing);
 `;
 
 export const HeaderButton = styled(Button)<{ $danger?: boolean }>`
@@ -50,20 +53,24 @@ export const HeaderButton = styled(Button)<{ $danger?: boolean }>`
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 28px;
+  height: 32px;
   padding: 0;
-  border-radius: 4px;
-  transition: var(--transition-properties);
+  border-radius: 6px;
   cursor: pointer;
-  margin: 0 1px;
-  will-change: background-color, transform;
-  transform: translateZ(0);
-  transition: var(--transition-properties);
+  margin: 0 2px;
+  border: none;
+  background: transparent;
+  will-change: transform, background-color;
+  transition: all 0.2s var(--spring-transition);
 
   &:hover {
     background-color: ${props => props.$danger ? 'var(--ant-color-error-bg)' : 'var(--ant-primary-1)'};
-    color: ${props => props.$danger && 'var(--ant-color-error)'};
+    color: ${props => props.$danger ? 'var(--ant-color-error)' : 'var(--ant-primary-color)'};
     transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 
@@ -71,6 +78,16 @@ export const TriggerButton = styled(Button)`
   padding: 0 16px;
   font-size: 16px;
   cursor: pointer;
-  transition: color 0.3s;
-  transition: var(--transition-properties);
+  border: none;
+  background: transparent;
+  transition: all 0.2s var(--spring-transition);
+  
+  &:hover {
+    color: var(--ant-primary-color);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;

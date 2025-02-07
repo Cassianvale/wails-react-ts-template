@@ -23,7 +23,9 @@ const StyledUserProfile = styled.div<{ $bgColor: string }>`
   justify-content: flex-start;
   cursor: pointer;
   background-color: var(--color-bg-container);
-  transition: var(--transition-properties);
+  transition: all 0.3s var(--spring-transition);
+  border-top: 1px solid var(--color-border);
+  will-change: background-color;
 
   &:hover {
     background-color: var(--color-bg-container-hover);
@@ -42,15 +44,26 @@ const StyledProfileContent = styled.div<{ $collapsed: boolean }>`
   align-items: center;
   width: 100%;
   padding: 12px 0;
-  transition: var(--transition-properties);
+  transition: all 0.3s var(--spring-transition);
   justify-content: ${props => props.$collapsed ? 'center' : 'flex-start'};
+  transform-origin: center;
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
 
 const StyledAvatar = styled(Avatar)<{ $collapsed: boolean }>`
   width: ${props => props.$collapsed ? '32px' : '40px'};
   height: ${props => props.$collapsed ? '32px' : '40px'};
   flex-shrink: 0;
-  transition: var(--transition-properties);
+  transition: all 0.3s var(--spring-transition);
+  border: 2px solid transparent;
+  
+  &:hover {
+    border-color: var(--ant-primary-color);
+    transform: scale(1.05);
+  }
   
   [data-theme='dark'] & {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -68,7 +81,8 @@ const StyledUserInfo = styled.div<{ $collapsed: boolean }>`
   max-width: ${props => props.$collapsed ? 0 : '200px'};
   visibility: ${props => props.$collapsed ? 'hidden' : 'visible'};
   transform: translateX(${props => props.$collapsed ? '-8px' : 0});
-  transition: var(--transition-properties);
+  transition: all 0.3s var(--spring-transition);
+  will-change: transform, opacity, max-width;
 `;
 
 const StyledUserName = styled.div<{ $textColor: string }>`
@@ -82,6 +96,7 @@ const StyledUserName = styled.div<{ $textColor: string }>`
   align-items: center;
   gap: 8px;
   color: ${props => props.$textColor};
+  transition: color 0.3s var(--transition-timing);
 `;
 
 const StyledUserStatus = styled.span<{ $color: string }>`
@@ -91,6 +106,11 @@ const StyledUserStatus = styled.span<{ $color: string }>`
   display: inline-block;
   flex-shrink: 0;
   background-color: ${props => props.$color};
+  transition: all 0.3s var(--bounce-transition);
+  
+  ${StyledUserProfile}:hover & {
+    transform: scale(1.2);
+  }
 `;
 
 const StyledStatusText = styled.div<{ $textColor: string }>`
@@ -99,6 +119,12 @@ const StyledStatusText = styled.div<{ $textColor: string }>`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${props => props.$textColor};
+  transition: color 0.3s var(--transition-timing);
+  opacity: 0.85;
+  
+  ${StyledUserProfile}:hover & {
+    opacity: 1;
+  }
 `;
 
 const UserProfile: React.FC<UserProfileProps> = React.memo(({ collapsed, theme: themeMode }) => {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Layout } from 'antd';
+import { Layout, Avatar as AntAvatar } from 'antd';
 
 const { Sider } = Layout;
 
@@ -37,6 +37,25 @@ export const StyledSider = styled(Sider)`
 
   /* 菜单容器样式 */
   .menu-container {
+    flex: 1;
+    border-inline-end: none !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 56px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--ant-primary-3);
+      border-radius: 3px;
+      &:hover {
+        background: var(--ant-primary-4);
+      }
+    }
+
     /* 菜单项基础样式 */
     .ant-menu-item {
       position: relative;
@@ -213,4 +232,140 @@ export const LogoText = styled.div<{ $collapsed: boolean }>`
   transform: translateX(${props => props.$collapsed ? '-10px' : '0'});
   transition: all 0.3s var(--spring-transition);
   will-change: transform, opacity;
+`;
+
+// 用户资料区域样式
+export const StyledUserProfile = styled.div<{ $collapsed: boolean }>`
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s var(--spring-transition);
+  position: relative;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-container);
+
+  &:hover {
+    background: var(--color-bg-hover);
+  }
+
+  ${props => props.$collapsed && `
+    padding: 12px;
+    justify-content: center;
+  `}
+`;
+
+export const UserAvatar = styled(AntAvatar)`
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  transition: all 0.3s var(--spring-transition);
+  background-color: var(--ant-primary-color);
+  position: relative;
+
+  &:hover {
+    border-color: var(--ant-primary-color);
+    transform: scale(1.05);
+  }
+`;
+
+export const UserInfo = styled.div<{ $collapsed: boolean }>`
+  flex: 1;
+  min-width: 0;
+  margin-left: ${props => props.$collapsed ? '0' : '12px'};
+  overflow: hidden;
+  opacity: ${props => props.$collapsed ? '0' : '1'};
+  max-width: ${props => props.$collapsed ? '0' : '124px'};
+  transition: all 0.3s var(--spring-transition);
+  will-change: transform, opacity, max-width;
+`;
+
+export const UserName = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ant-color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+`;
+
+export const StatusBadge = styled.span<{ $status: 'online' | 'offline' | 'busy' }>`
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: ${props => {
+    switch (props.$status) {
+      case 'online':
+        return '#52c41a';
+      case 'busy':
+        return '#faad14';
+      default:
+        return '#ff4d4f';
+    }
+  }};
+  transition: transform 0.3s ease;
+
+  ${StyledUserProfile}:hover & {
+    transform: scale(1.2);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.4;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: currentColor;
+    animation: ripple 2s ease-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes ripple {
+    0% {
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+    }
+    100% {
+      width: 300%;
+      height: 300%;
+      opacity: 0;
+    }
+  }
+`;
+
+export const UserStatus = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ant-color-text-secondary);
+  white-space: nowrap;
+  transition: color 0.3s var(--transition-timing);
+  opacity: 0.85;
+
+  ${StyledUserProfile}:hover & {
+    opacity: 1;
+  }
 `;

@@ -36,6 +36,7 @@ export default {
     macroEditor: 'Macro Editor',
     modeSettings: 'Mode Settings',
     about: 'About',
+    preferences: 'Preferences',
   },
   pages: {
     home: {
@@ -71,4 +72,34 @@ export default {
     system: 'System Settings',
     saved: 'Save Successful !',
   },
+  status: {
+    online: 'Online',
+    offline: 'Offline',
+    busy: 'Busy',
+    away: 'Away',
+    invisible: 'Invisible'
+  },
+  user: {
+    account: 'Account Info',
+    security: 'Security',
+    notification: 'Notifications',
+    language: 'Language',
+    theme: 'Theme',
+    privacy: 'Privacy',
+    help: 'Help Center',
+    feedback: 'Feedback'
+  },
+  profile: {
+    title: 'Profile',
+    basicInfo: 'Basic Info',
+    contactInfo: 'Contact Info',
+    preferences: 'Preferences',
+    avatar: 'Avatar',
+    userName: 'Username',
+    email: 'Email',
+    phone: 'Phone',
+    bio: 'Bio',
+    lastLogin: 'Last Login',
+    memberSince: 'Member Since'
+  }
 };

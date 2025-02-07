@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { getSystemLanguage } from '../../../../i18n/config';
 
 const LanguageSelector: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [isSystemLanguage, setIsSystemLanguage] = useState(true);
-
-  const getSystemLanguage = () => {
-    const systemLanguage = navigator.language.toLowerCase();
-    const supportedLanguages = ['en', 'zh'];
-    const defaultLanguage = 'en';
-    
-    return supportedLanguages.find(lang => 
-      systemLanguage.startsWith(lang)
-    ) || defaultLanguage;
-  };
 
   useEffect(() => {
     if (isSystemLanguage) {
@@ -24,7 +15,7 @@ const LanguageSelector: React.FC = () => {
         i18n.changeLanguage(detectedLanguage);
       }
     }
-  }, [isSystemLanguage]);
+  }, [isSystemLanguage, i18n]);
 
   const languageMenuItems = [
     {

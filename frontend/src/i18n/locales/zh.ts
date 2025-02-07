@@ -36,6 +36,7 @@ export default {
     macroEditor: '宏编辑器',
     modeSettings: '模式设置',
     about: '关于',
+    preferences: '偏好设置',
   },
   pages: {
     home: {
@@ -71,4 +72,34 @@ export default {
     system: '系统设置',
     saved: '保存成功！',
   },
+  status: {
+    online: '在线',
+    offline: '离线',
+    busy: '忙碌',
+    away: '离开',
+    invisible: '隐身'
+  },
+  user: {
+    account: '账号信息',
+    security: '安全设置',
+    notification: '通知设置',
+    language: '语言设置',
+    theme: '主题设置',
+    privacy: '隐私设置',
+    help: '帮助中心',
+    feedback: '反馈建议'
+  },
+  profile: {
+    title: '个人资料',
+    basicInfo: '基本信息',
+    contactInfo: '联系方式',
+    preferences: '偏好设置',
+    avatar: '头像',
+    userName: '用户名',
+    email: '邮箱',
+    phone: '手机号',
+    bio: '个人简介',
+    lastLogin: '上次登录',
+    memberSince: '注册时间'
+  }
 };

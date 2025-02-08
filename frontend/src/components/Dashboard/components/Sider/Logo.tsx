@@ -50,11 +50,9 @@ const Logo: React.FC<LogoProps> = ({ collapsed }) => {
   return (
     <StyledLogo $collapsed={collapsed} onClick={handleLogoClick}>
       <LogoIcon $isShaking={isShaking}>
-        <img src={logo} alt="Logo" />
+        <img src={logo} alt="logo" />
       </LogoIcon>
-      <LogoText $collapsed={collapsed}>
-        Wails Template
-      </LogoText>
+      {!collapsed && <LogoText>Wails Template</LogoText>}
     </StyledLogo>
   );
 };

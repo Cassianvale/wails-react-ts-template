@@ -222,14 +222,12 @@ export const LogoIcon = styled.div<{ $isShaking?: boolean }>`
  * 1. 响应式显示/隐藏
  * 2. 平滑的位移和透明度过渡
  */
-export const LogoText = styled.div<{ $collapsed: boolean }>`
+export const LogoText = styled.div`
   margin-left: 12px;
   font-size: 18px;
   font-weight: 600;
-  color: var(--logo-color);
+  color: var(--font-text-color);
   white-space: nowrap;
-  opacity: ${props => props.$collapsed ? 0 : 1};
-  transform: translateX(${props => props.$collapsed ? '-10px' : '0'});
   transition: all 0.3s var(--spring-transition);
   will-change: transform, opacity;
 `;
@@ -244,7 +242,7 @@ export const StyledUserProfile = styled.div<{ $collapsed: boolean }>`
   position: relative;
   border-top: 1px solid var(--color-border);
   background: var(--color-bg-container);
-
+  color: var(--font-text-color);
   &:hover {
     background: var(--color-bg-hover);
   }
@@ -360,10 +358,7 @@ export const UserStatus = styled.div`
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: var(--ant-color-text-secondary);
   white-space: nowrap;
-  transition: color 0.3s var(--transition-timing);
-  opacity: 0.85;
 
   ${StyledUserProfile}:hover & {
     opacity: 1;

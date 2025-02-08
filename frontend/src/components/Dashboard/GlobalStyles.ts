@@ -59,7 +59,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .theme-light {
-    --logo-color: #213547;
+    --font-text-color: #213547;
     --sidebar-font-color-selected: var(--ant-color-text);
     --sidebar-font-color-unselected: var(--ant-color-text-secondary);
     --sidebar-indicator-color: var(--ant-primary-color);
@@ -72,7 +72,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .theme-dark {
-    --logo-color: #ffffff;
+    --font-text-color: #ffffff;
     --sidebar-font-color-selected: rgba(255, 255, 255, 0.95);
     --sidebar-font-color-unselected: rgba(255, 255, 255, 0.65);
     --sidebar-indicator-color: #ffffff;

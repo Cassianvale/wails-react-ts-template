@@ -17,7 +17,7 @@ export const StyledSider = styled(Sider)`
   bottom: 0;
   z-index: 100;
   height: 100vh;
-  background-color: var(--color-bg-container) !important;
+  background-color: var(--layout-bg) !important;
   transition: all var(--transition-duration) var(--transition-timing) !important;
   will-change: width, transform, background-color, box-shadow;
   box-shadow: var(--header-shadow);
@@ -29,7 +29,7 @@ export const StyledSider = styled(Sider)`
     height: 100%;
     width: ${props => props.collapsed ? '64px' : '200px'} !important;
     transition: width var(--transition-duration) var(--spring-transition);
-    background-color: var(--color-bg-container);
+    background-color: var(--layout-bg);
   }
 
   /* 菜单容器样式 */

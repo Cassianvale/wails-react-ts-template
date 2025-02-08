@@ -51,6 +51,8 @@ export const GlobalStyle = createGlobalStyle`
     --color-text-primary: var(--ant-color-text);
     --color-text-secondary: var(--ant-color-text-secondary);
     --color-border: var(--ant-color-border);
+    --layout-bg-light: #ffffff;
+    --layout-bg-dark: #141414;
     
     /* 阴影变量 */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -65,6 +67,7 @@ export const GlobalStyle = createGlobalStyle`
     --sidebar-indicator-color: var(--ant-primary-color);
     --content-bg-color: rgba(19, 14, 41, 0.03);
     --glow-color: rgba(114, 137, 218, 0.5);
+    --layout-bg: var(--layout-bg-light);
     
     --header-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     --card-shadow: 
@@ -79,6 +82,7 @@ export const GlobalStyle = createGlobalStyle`
     --sidebar-indicator-color: #ffffff;
     --content-bg-color: rgba(130, 130, 130, 0.15);
     --glow-color: rgba(114, 137, 218, 0.5);
+    --layout-bg: var(--layout-bg-dark);
     
     --header-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     --card-shadow: 
@@ -116,6 +120,7 @@ export const GlobalStyle = createGlobalStyle`
 
   .ant-layout {
     transition: all var(--transition-duration) var(--transition-timing) !important;
+    background-color: var(--layout-bg);
   }
 
   .ant-layout-sider {

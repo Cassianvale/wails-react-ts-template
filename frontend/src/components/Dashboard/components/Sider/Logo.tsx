@@ -11,6 +11,7 @@ const Logo: React.FC<LogoProps> = ({ collapsed }) => {
   const navigate = useNavigate();
   const [isShaking, setIsShaking] = useState(false);
   const timerRef = useRef<number>();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // 清理定时器的函数
   const clearShakeTimer = () => {
@@ -47,8 +48,23 @@ const Logo: React.FC<LogoProps> = ({ collapsed }) => {
     navigate('/home');
   };
 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      containerRef.current.style.setProperty('--mouse-x', `${x}px`);
+      containerRef.current.style.setProperty('--mouse-y', `${y}px`);
+    }
+  };
+
   return (
-    <StyledLogo $collapsed={collapsed} onClick={handleLogoClick}>
+    <StyledLogo 
+      ref={containerRef}
+      $collapsed={collapsed}
+      onMouseMove={handleMouseMove}
+      onClick={handleLogoClick}
+    >
       <LogoIcon $isShaking={isShaking}>
         <img src={logo} alt="logo" />
       </LogoIcon>

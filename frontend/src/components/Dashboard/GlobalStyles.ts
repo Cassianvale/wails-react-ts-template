@@ -64,6 +64,7 @@ export const GlobalStyle = createGlobalStyle`
     --sidebar-font-color-unselected: var(--ant-color-text-secondary);
     --sidebar-indicator-color: var(--ant-primary-color);
     --content-bg-color: rgba(19, 14, 41, 0.03);
+    --glow-color: rgba(114, 137, 218, 0.5);
     
     --header-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     --card-shadow: 
@@ -77,6 +78,7 @@ export const GlobalStyle = createGlobalStyle`
     --sidebar-font-color-unselected: rgba(255, 255, 255, 0.65);
     --sidebar-indicator-color: #ffffff;
     --content-bg-color: rgba(130, 130, 130, 0.15);
+    --glow-color: rgba(114, 137, 218, 0.5);
     
     --header-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     --card-shadow: 

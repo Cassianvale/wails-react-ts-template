@@ -18,10 +18,8 @@ export const StyledSider = styled(Sider)`
   z-index: 100;
   height: 100vh;
   background-color: var(--color-bg-container) !important;
-  /* spring 动画过渡 */
-  transition: all var(--transition-duration) var(--spring-transition) !important;
-  will-change: width, transform;
-  /* 添加阴影 */
+  transition: all var(--transition-duration) var(--transition-timing) !important;
+  will-change: width, transform, background-color, box-shadow;
   box-shadow: var(--header-shadow);
 
   /* Sider 内容容器样式 */
@@ -32,7 +30,6 @@ export const StyledSider = styled(Sider)`
     width: ${props => props.collapsed ? '64px' : '200px'} !important;
     transition: width var(--transition-duration) var(--spring-transition);
     background-color: var(--color-bg-container);
-    transition: background-color var(--transition-duration) var(--transition-timing);
   }
 
   /* 菜单容器样式 */
@@ -51,6 +48,7 @@ export const StyledSider = styled(Sider)`
     &::-webkit-scrollbar-thumb {
       background: var(--ant-primary-3);
       border-radius: 3px;
+      transition: background-color var(--transition-duration) var(--transition-timing);
       &:hover {
         background: var(--ant-primary-4);
       }
@@ -62,10 +60,9 @@ export const StyledSider = styled(Sider)`
       padding: 0 16px;
       margin: 4px 0px;
       border-radius: 8px;
-      transition: all 0.3s var(--spring-transition);
       color: var(--sidebar-font-color-unselected) !important;
       overflow: hidden;
-
+      transition: all 0.3s var(--spring-transition);
       /* 左侧指示条样式 */
       &::before {
         content: '';
@@ -77,7 +74,7 @@ export const StyledSider = styled(Sider)`
         width: 4px;
         background-color: var(--sidebar-indicator-color);
         border-radius: 0 4px 4px 0;
-        transition: all 0.3s var(--spring-transition);
+        transition: all var(--transition-duration) var(--transition-timing);
         opacity: 0;
       }
 
@@ -91,13 +88,13 @@ export const StyledSider = styled(Sider)`
         height: 100%;
         background-color: var(--ant-primary-1);
         opacity: 0;
-        transition: opacity 0.3s var(--bounce-transition);
+        transition: all var(--transition-duration) var(--transition-timing);
         z-index: -1;
       }
 
       /* 菜单项文本动画 */
       .ant-menu-title-content {
-        transition: all 0.3s var(--spring-transition);
+        transition: color var(--transition-duration) var(--transition-timing);
       }
 
       /* 悬浮状态样式 */
@@ -181,13 +178,49 @@ export const StyledLogo = styled.div<{ $collapsed: boolean }>`
   padding: ${props => props.$collapsed ? '16px 20px' : '16px'};
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s var(--spring-transition);
+  color: var(--font-text-color);
+  position: relative;
   width: ${props => props.$collapsed ? 'var(--sidebar-width-collapsed)' : 'var(--sidebar-width-expanded)'};
-  
-  /* Logo 悬浮效果 */
+
+  /* Logo 荧光效果 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at var(--mouse-x) var(--mouse-y),
+      var(--glow-color) 0%,
+      transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  position: relative;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
   &:hover {
-    opacity: 0.85;
-    transform: scale(0.98);
+    &::before {
+      opacity: 1;
+    }
+    margin: 0px;
+    transform: scale(0.95);
+  }
+
+  &:not(:hover) {
+    &::before {
+      opacity: 0;
+    }
+    transform: scale(1);
   }
 `;
 
@@ -226,9 +259,8 @@ export const LogoText = styled.div`
   margin-left: 12px;
   font-size: 18px;
   font-weight: 600;
-  color: var(--font-text-color);
-  white-space: nowrap;
   transition: all 0.3s var(--spring-transition);
+  white-space: nowrap;
   will-change: transform, opacity;
 `;
 
@@ -241,8 +273,9 @@ export const StyledUserProfile = styled.div<{ $collapsed: boolean }>`
   transition: all 0.3s var(--spring-transition);
   position: relative;
   border-top: 1px solid var(--color-border);
-  background: var(--color-bg-container);
+
   color: var(--font-text-color);
+
   &:hover {
     background: var(--color-bg-hover);
   }

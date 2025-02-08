@@ -45,6 +45,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
   }, []);
 
   return (
+    <StyledUserProfile $collapsed={collapsed}>
       <Dropdown
         menu={{
           items: userMenuItems,
@@ -65,23 +66,24 @@ const UserProfile: React.FC<UserProfileProps> = ({
           </div>
         )}
       >
-      <StyledUserProfile $collapsed={collapsed}>
-        <UserAvatar
-          size={32}
-          icon={!avatarUrl && <UserOutlined />}
-          src={avatarUrl}
-        />
-        <UserInfo $collapsed={collapsed}>
-          <UserName>
-            {userName}
-            <StatusBadge $status={userStatus} />
-          </UserName>
-          <UserStatus>
-            {statusText}
-          </UserStatus>
-        </UserInfo>
-      </StyledUserProfile>
-    </Dropdown>
+        <div>
+          <UserAvatar
+            size={32}
+            icon={!avatarUrl && <UserOutlined />}
+            src={avatarUrl}
+          />
+        </div>
+      </Dropdown>
+      <UserInfo $collapsed={collapsed}>
+        <UserName>
+          {userName}
+          <StatusBadge $status={userStatus} />
+        </UserName>
+        <UserStatus>
+          {statusText}
+        </UserStatus>
+      </UserInfo>
+    </StyledUserProfile>
   );
 };
 

@@ -269,16 +269,10 @@ export const StyledUserProfile = styled.div<{ $collapsed: boolean }>`
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  cursor: pointer;
   transition: all 0.3s var(--spring-transition);
   position: relative;
   border-top: 1px solid var(--color-border);
-
   color: var(--font-text-color);
-
-  &:hover {
-    background: var(--color-bg-hover);
-  }
 
   ${props => props.$collapsed && `
     padding: 12px;
@@ -290,12 +284,39 @@ export const UserAvatar = styled(AntAvatar)`
   flex-shrink: 0;
   border: 2px solid transparent;
   transition: all 0.3s var(--spring-transition);
-  background-color: var(--ant-primary-color);
   position: relative;
+  transform-origin: center;
+  will-change: transform, border-color, box-shadow;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: var(--ant-primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s var(--spring-transition);
+    z-index: -1;
+  }
 
   &:hover {
     border-color: var(--ant-primary-color);
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--ant-primary-rgb), 0.35);
+
+    &::before {
+      opacity: 0.15;
+      transform: scale(1.1);
+    }
+  }
+
+  /* 点击效果 */
+  &:active {
+    transform: scale(0.95) translateY(0);
+    transition-duration: 0.15s;
+    box-shadow: 0 2px 6px rgba(var(--ant-primary-rgb), 0.2);
   }
 `;
 
